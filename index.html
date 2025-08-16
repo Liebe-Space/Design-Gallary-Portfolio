@@ -18,7 +18,7 @@
         :root {
             --primary: #4361ee;
             --primary-light: #4895ef;
-            --primary-dark: #000000; /* Changed to black */
+            --primary-dark: #000000;
             --accent: #f72585;
             --accent-light: #ff70a6;
             --white: #ffffff;
@@ -188,7 +188,7 @@
         /* --- Banner Section --- */
         .banner {
             background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), 
-                        url('images/gallery-banner.jpg');
+                        url('https://images.unsplash.com/photo-1518998053901-5348d3961a04?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80');
             background-size: cover;
             background-position: center;
             background-attachment: fixed;
@@ -609,35 +609,6 @@
         #prev-btn { left: 20px; }
         #next-btn { right: 20px; }
 
-        /* --- Loading Animation --- */
-        .loader {
-            display: flex;
-            justify-content: center;
-            padding: 60px;
-        }
-        
-        .loader-circle {
-            width: 15px;
-            height: 15px;
-            margin: 0 8px;
-            background: var(--gradient-primary);
-            border-radius: 50%;
-            animation: bounce 1.5s infinite ease-in-out;
-        }
-        
-        .loader-circle:nth-child(2) {
-            animation-delay: 0.2s;
-        }
-        
-        .loader-circle:nth-child(3) {
-            animation-delay: 0.4s;
-        }
-        
-        @keyframes bounce {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-20px); }
-        }
-
         /* --- Responsive Design --- */
         @media (max-width: 1200px) {
             .hero h1 { font-size: 3rem; }
@@ -689,7 +660,7 @@
     
     <!-- Hero Section -->
     <section class="hero">
-        <img src="images/hero-background.jpg" alt="Abstract Art" class="hero-background">
+        <img src="https://images.unsplash.com/photo-1541961017774-22349e4a1262?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2058&q=80" alt="Abstract Art" class="hero-background">
         <div class="hero-overlay"></div>
         <div class="hero-content">
             <h1>Where Creativity Finds Its Canvas</h1>
@@ -714,11 +685,8 @@
         <div class="category-filters" id="filters">
             <button class="filter-btn active" data-filter="all">All</button>
             <button class="filter-btn" data-filter="Digital Art">Digital Art</button>
-            <button class="filter-btn" data-filter="Photography">Photography</button>
-            <button class="filter-btn" data-filter="3D & Vector">3D & Vector</button>
-            <button class="filter-btn" data-filter="Typography">Typography</button>
+            <button class="filter-btn" data-filter="Illustration">Illustration</button>
             <button class="filter-btn" data-filter="Posters">Posters</button>
-            <button class="filter-btn" data-filter="UI Designs">UI Designs</button>
         </div>
         
         <!-- Gallery Grid -->
@@ -733,7 +701,7 @@
     <section id="about" class="container about">
         <h2 class="section-title">About Me</h2>
         <div class="about-content">
-            <img src="images/artist-portrait.jpg" alt="Artist Portrait" class="about-image">
+            <img src="https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1974&q=80" alt="Artist Portrait" class="about-image">
             <div class="about-text">
                 <h3>Hello, I'm Sunny</h3>
                 <p>I'm a passionate digital artist and graphic designer with a love for creating visually compelling narratives. My journey in the arts began over a decade ago, and since then I've developed a distinctive style that blends traditional techniques with modern digital tools.</p>
@@ -807,23 +775,24 @@
             // Set current year in footer
             document.getElementById('current-year').textContent = new Date().getFullYear();
 
-            // Smooth scrolling for navigation links
-            document.querySelectorAll('nav a').forEach(anchor => {
-                anchor.addEventListener('click', function(e) {
-                    e.preventDefault();
-                    const targetId = this.getAttribute('href');
-                    const targetElement = document.querySelector(targetId);
-                    
-                    if (targetElement) {
-                        window.scrollTo({
-                            top: targetElement.offsetTop - 80,
-                            behavior: 'smooth'
-                        });
-                    }
-                });
-            });
+            // Initialize DOM elements first
+            const galleryGrid = document.getElementById('gallery-grid');
+            const imageModal = document.getElementById('image-modal');
+            const filterButtons = document.querySelectorAll('.filter-btn');
+            
+            // Image Modal Elements
+            const modalImg = document.getElementById('modal-img');
+            const modalTitle = document.getElementById('modal-title');
+            const modalArtist = document.getElementById('modal-artist');
+            const modalDescription = document.getElementById('modal-description');
+            const modalMedium = document.getElementById('modal-medium');
+            const modalDimensions = document.getElementById('modal-dimensions');
+            const modalYear = document.getElementById('modal-year');
+            const imageModalClose = document.getElementById('image-modal-close');
+            const prevBtn = document.getElementById('prev-btn');
+            const nextBtn = document.getElementById('next-btn');
 
-            // Artwork data (now embedded directly)
+            // Artwork data with your images
             const galleryData = [
                 {
                     "id": 1,
@@ -893,31 +862,13 @@
                 }
             ];
 
-            // Render the gallery with all items initially
-            renderGallery(galleryData);
             let currentFilteredData = [...galleryData];
-
-            // --- DOM Elements ---
-            const galleryGrid = document.getElementById('gallery-grid');
-            const imageModal = document.getElementById('image-modal');
-            const filterButtons = document.querySelectorAll('.filter-btn');
-            
-            // --- Image Modal Elements ---
-            const modalImg = document.getElementById('modal-img');
-            const modalTitle = document.getElementById('modal-title');
-            const modalArtist = document.getElementById('modal-artist');
-            const modalDescription = document.getElementById('modal-description');
-            const modalMedium = document.getElementById('modal-medium');
-            const modalDimensions = document.getElementById('modal-dimensions');
-            const modalYear = document.getElementById('modal-year');
-            const imageModalClose = document.getElementById('image-modal-close');
-            const prevBtn = document.getElementById('prev-btn');
-            const nextBtn = document.getElementById('next-btn');
-
             let currentIndex = 0;
 
-            // --- Render Gallery ---
+            // Render Gallery Function
             function renderGallery(items) {
+                if (!galleryGrid) return;
+                
                 galleryGrid.innerHTML = '';
                 
                 if (items.length === 0) {
@@ -943,7 +894,7 @@
                 });
             };
 
-            // --- Update Modal Content ---
+            // Update Modal Content
             function updateModalContent(index) {
                 const artwork = currentFilteredData[index];
                 if (artwork) {
@@ -958,7 +909,7 @@
                 }
             };
 
-            // --- Modal Logic ---
+            // Modal Logic
             function openModal(modalElement) { 
                 modalElement.classList.add('active'); 
                 document.body.style.overflow = 'hidden'; 
@@ -971,7 +922,23 @@
                 document.body.style.position = 'static';
             };
 
-            // --- Event Listeners ---
+            // Smooth scrolling for navigation links
+            document.querySelectorAll('nav a').forEach(anchor => {
+                anchor.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const targetId = this.getAttribute('href');
+                    const targetElement = document.querySelector(targetId);
+                    
+                    if (targetElement) {
+                        window.scrollTo({
+                            top: targetElement.offsetTop - 80,
+                            behavior: 'smooth'
+                        });
+                    }
+                });
+            });
+
+            // Event Listeners
             galleryGrid.addEventListener('click', (e) => {
                 const item = e.target.closest('.gallery-item');
                 if (item) {
@@ -985,6 +952,7 @@
 
             imageModalClose.addEventListener('click', () => closeModal(imageModal));
             imageModal.addEventListener('click', (e) => e.target === imageModal && closeModal(imageModal));
+            
             window.addEventListener('keydown', (e) => {
                 if (imageModal.classList.contains('active')) {
                     if (e.key === 'Escape') {
@@ -999,7 +967,7 @@
                 }
             });
 
-            // --- Filter Logic ---
+            // Filter Logic
             filterButtons.forEach(button => {
                 button.addEventListener('click', () => {
                     filterButtons.forEach(btn => btn.classList.remove('active'));
@@ -1010,7 +978,7 @@
                 });
             });
 
-            // --- Modal Navigation Logic ---
+            // Modal Navigation Logic
             nextBtn.addEventListener('click', () => { 
                 currentIndex = (currentIndex + 1) % currentFilteredData.length; 
                 updateModalContent(currentIndex); 
@@ -1021,7 +989,7 @@
                 updateModalContent(currentIndex); 
             });
 
-            // --- Lazy Loading for Images ---
+            // Lazy Loading for Images
             if ('IntersectionObserver' in window) {
                 const lazyImageObserver = new IntersectionObserver((entries) => {
                     entries.forEach((entry) => {
@@ -1039,6 +1007,9 @@
                     lazyImageObserver.observe(img);
                 });
             }
+
+            // Initial render
+            renderGallery(galleryData);
         });
     </script>
 </body>
