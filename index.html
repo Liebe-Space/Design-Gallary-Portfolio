@@ -3,14 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sunny's Graphic Design & Illustration Portfolio</title>
+    <title>Sunny's Art & Design Gallery</title>
     
     <style>
         /* --- Custom Properties --- */
         :root {
             --primary: #4361ee;
             --primary-light: #4895ef;
-            --primary-dark: #3a0ca3;
+            --primary-dark: #000000;
             --accent: #f72585;
             --accent-light: #ff70a6;
             --white: #ffffff;
@@ -21,6 +21,7 @@
             --shadow-color: rgba(0, 0, 0, 0.1);
             --section-bg: #f8f9fa;
             --gradient-primary: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
+            --gradient-accent: linear-gradient(135deg, var(--accent) 0%, var(--accent-light) 100%);
         }
 
         /* --- Global Styles --- */
@@ -28,23 +29,14 @@
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            /* Replaced Google Font with a robust System Font Stack */
-            font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            /* Replaced Google Fonts with a modern system font stack */
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
         }
 
         html { scroll-behavior: smooth; }
         body { background-color: var(--white); color: var(--charcoal); line-height: 1.6; }
         .container { padding: 50px 5%; max-width: 1400px; margin: 0 auto; }
         section { padding: 80px 0; }
-
-        /* SVG Icon styling */
-        svg {
-            fill: currentColor;
-            width: 1em;
-            height: 1em;
-            display: inline-block;
-            vertical-align: middle;
-        }
 
         /* --- Header & Navigation --- */
         header {
@@ -71,9 +63,9 @@
         }
         
         .logo svg {
-            color: var(--primary);
-            width: 1.2em;
-            height: 1.2em;
+            width: 24px;
+            height: 24px;
+            fill: url(#logo-gradient);
         }
 
         nav ul {
@@ -111,7 +103,7 @@
             width: 100%;
         }
 
-        /* --- Modern Animated Hero Section --- */
+        /* --- Hero Section (Modern & Animated) --- */
         .hero {
             position: relative; 
             height: 85vh; 
@@ -122,8 +114,8 @@
             text-align: center; 
             color: var(--white); 
             overflow: hidden;
-            /* Animated Background Gradient */
-            background: linear-gradient(-45deg, #3a0ca3, #4361ee, #f72585, #4895ef);
+            /* Animated CSS Gradient Background */
+            background: linear-gradient(-45deg, #4361ee, #f72585, #4895ef, #3a0ca3);
             background-size: 400% 400%;
             animation: gradientBG 15s ease infinite;
         }
@@ -134,50 +126,46 @@
             100% { background-position: 0% 50%; }
         }
         
-        /* Optional: Keep image as a subtle texture overlay if you have one */
-        .hero-background {
-            position: absolute; 
-            top: 0; 
-            left: 0; 
-            width: 100%; 
-            height: 100%;
-            object-fit: cover; 
-            z-index: 0; 
-            opacity: 0.15; /* Reduced opacity to let gradient shine */
-            mix-blend-mode: overlay;
+        /* Floating Animated Shapes */
+        .shape {
+            position: absolute;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(5px);
+            animation: float 10s infinite ease-in-out alternate;
+            z-index: 0;
+        }
+
+        .shape:nth-child(1) { width: 300px; height: 300px; top: 10%; left: 10%; animation-duration: 12s; }
+        .shape:nth-child(2) { width: 150px; height: 150px; bottom: 20%; right: 15%; animation-duration: 9s; animation-direction: alternate-reverse; }
+        .shape:nth-child(3) { width: 200px; height: 200px; bottom: 10%; left: 30%; animation-duration: 15s; }
+
+        @keyframes float {
+            0% { transform: translateY(0) scale(1); }
+            100% { transform: translateY(-30px) scale(1.05); }
         }
         
         .hero-content { 
             position: relative;
-            z-index: 2;
-            max-width: 900px; 
+            z-index: 1;
+            max-width: 800px; 
             padding: 0 2rem; 
-            animation: fadeInDown 1s ease-out, float 6s ease-in-out infinite; 
-        }
-
-        @keyframes float {
-            0% { transform: translateY(0px); }
-            50% { transform: translateY(-10px); }
-            100% { transform: translateY(0px); }
+            animation: fadeInDown 1.2s ease-out; 
         }
         
         .hero h1 { 
-            font-size: 4rem; 
+            font-size: 3.8rem; 
             font-weight: 800; 
-            margin-bottom: 1rem;
-            line-height: 1.1;
+            margin-bottom: 1.5rem;
+            line-height: 1.2;
             text-shadow: 0 4px 15px rgba(0,0,0,0.2);
-            letter-spacing: -1px;
         }
         
         .hero p { 
-            font-size: 1.4rem; 
+            font-size: 1.3rem; 
             font-weight: 300; 
             margin-bottom: 2.5rem;
             opacity: 0.95;
-            max-width: 700px;
-            margin-left: auto;
-            margin-right: auto;
         }
         
         .hero-btn {
@@ -190,14 +178,47 @@
             font-weight: 600;
             font-size: 1.1rem;
             transition: all 0.3s;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.15);
         }
         
         .hero-btn:hover {
-            transform: translateY(-3px) scale(1.05);
-            box-shadow: 0 8px 25px rgba(0,0,0,0.25);
-            background: var(--primary);
+            transform: translateY(-4px);
+            box-shadow: 0 15px 25px rgba(0,0,0,0.2);
+            background: var(--charcoal);
             color: var(--white);
+        }
+
+        /* --- Category Filters --- */
+        .category-filters { 
+            text-align: center; 
+            padding: 40px 20px 20px; 
+        }
+        
+        .filter-btn {
+            background: none; 
+            border: 1px solid var(--medium-gray); 
+            border-radius: 50px; 
+            padding: 10px 25px;
+            margin: 5px; 
+            cursor: pointer; 
+            font-weight: 500; 
+            color: var(--dark-gray); 
+            transition: all 0.3s ease;
+        }
+        
+        .filter-btn:hover { 
+            background: var(--gradient-primary); 
+            color: var(--white); 
+            border-color: transparent;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(67, 97, 238, 0.2);
+        }
+        
+        .filter-btn.active { 
+            background: var(--gradient-primary); 
+            color: var(--white); 
+            border-color: transparent;
+            box-shadow: 0 4px 12px rgba(67, 97, 238, 0.3);
         }
 
         /* --- Gallery Section --- */
@@ -206,30 +227,6 @@
             background-color: var(--light-gray);
             border-radius: 20px;
             margin: 40px 0;
-        }
-
-        .category-filters {
-            display: flex;
-            justify-content: center;
-            gap: 15px;
-            margin-bottom: 40px;
-            flex-wrap: wrap;
-        }
-
-        .filter-btn {
-            padding: 8px 20px;
-            border: 1px solid var(--primary);
-            background: transparent;
-            color: var(--primary);
-            border-radius: 30px;
-            cursor: pointer;
-            font-weight: 500;
-            transition: all 0.3s;
-        }
-
-        .filter-btn.active, .filter-btn:hover {
-            background: var(--primary);
-            color: var(--white);
         }
         
         .gallery-grid { 
@@ -416,21 +413,29 @@
         }
         
         .footer-socials { 
-            margin-bottom: 30px; 
+            margin-bottom: 30px;
+            display: flex;
+            justify-content: center;
+            gap: 20px;
         }
         
         .footer-socials a { 
             color: var(--white); 
-            margin: 0 15px; 
-            font-size: 1.5rem; 
+            text-decoration: none;
+            font-size: 1rem; 
+            font-weight: 500;
             transition: all 0.3s; 
-            display: inline-block; 
-            transform: scale(1);
+            opacity: 0.8;
+            padding: 5px 15px;
+            border: 1px solid rgba(255,255,255,0.2);
+            border-radius: 50px;
         }
         
         .footer-socials a:hover { 
-            color: var(--primary-light); 
-            transform: scale(1.2); 
+            color: var(--white); 
+            opacity: 1;
+            background: rgba(255,255,255,0.1);
+            border-color: var(--primary-light);
         }
         
         .footer-bottom { 
@@ -439,6 +444,14 @@
             font-size: 0.9rem; 
             padding-top: 20px;
             border-top: 1px solid rgba(255,255,255,0.1);
+        }
+
+        /* --- Inline SVG Icons Container --- */
+        .icon-box svg {
+            width: 20px;
+            height: 20px;
+            fill: currentColor;
+            margin-right: 8px;
         }
 
         /* --- Modal --- */
@@ -486,21 +499,23 @@
         .modal-close {
             background: none; 
             border: none; 
-            font-size: 2rem; 
+            font-size: 2.5rem; 
             cursor: pointer; 
             color: var(--dark-gray);
             transition: color 0.3s; 
             position: absolute; 
-            top: 15px; 
+            top: 10px; 
             right: 15px;
             z-index: 10; 
             background: rgba(255,255,255,0.9); 
-            width: 40px; 
-            height: 40px;
+            width: 45px; 
+            height: 45px;
             border-radius: 50%; 
             display: flex; 
             align-items: center; 
             justify-content: center;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+            line-height: 1;
         }
         
         .modal-close:hover { 
@@ -514,7 +529,7 @@
         
         .modal-img-container { 
             flex: 3; 
-            background-color: #f0f0f0; 
+            background-color: #111; 
             display: flex; 
             align-items: center; 
             justify-content: center; 
@@ -584,7 +599,7 @@
 
         /* --- Responsive Design --- */
         @media (max-width: 1200px) {
-            .hero h1 { font-size: 3.5rem; }
+            .hero h1 { font-size: 3.2rem; }
             .about-content { gap: 40px; }
         }
         
@@ -595,12 +610,12 @@
             .modal-img-container { height: 50vh; }
             .about-content { flex-direction: column; text-align: center; }
             .about-image { margin: 0 auto 30px; }
-            .hero { height: 70vh; min-height: 500px; }
+            .hero { height: 75vh; min-height: 500px; }
         }
         
         @media (max-width: 768px) {
             nav ul { gap: 15px; }
-            .hero h1 { font-size: 2.5rem; }
+            .hero h1 { font-size: 2.8rem; }
             .hero p { font-size: 1.1rem; }
             .section-title { font-size: 2rem; }
             .modal-details { padding: 25px; }
@@ -611,19 +626,29 @@
             .modal-nav { width: 40px; height: 40px; font-size: 20px; }
             .hero h1 { font-size: 2.2rem; }
             .hero { height: 60vh; min-height: 400px; }
-            nav ul { gap: 12px; }
+            nav ul { flex-wrap: wrap; justify-content: center; gap: 12px; }
+            .footer-socials { flex-wrap: wrap; }
         }
     </style>
 </head>
 <body>
+    <svg style="width:0;height:0;position:absolute;" aria-hidden="true" focusable="false">
+      <linearGradient id="logo-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+        <stop offset="0%" stop-color="#4361ee" />
+        <stop offset="100%" stop-color="#f72585" />
+      </linearGradient>
+    </svg>
+
     <header>
         <a href="#" class="logo">
-            <svg viewBox="0 0 512 512"><path d="M290.7 311L95 269.7 86.8 309l181.1 53.6-26.6 63.3c-28.5-5.3-51.5-22.1-64.8-46.7-18.1-33.4-32.2-76-32.2-76s-20.4-1.9-20.3 26.2c0 23.3 14.1 63.7 39 96.5 24.2 31.9 61.6 52.8 111.9 50.1 50-2.6 85.9-25.5 106.8-59.9 20.8-34.3 22-77.5 22-77.5l-109-27.3zM451.7 49c-38.3-43-102.7-44-142.2-2.3L28.1 316.5 0 468l133.4-60.6 281-285.8C453.9 80 490.1 92.1 451.7 49zM151.4 390L71 426.6l24.6-96.5L343.3 92.6l64.1 59.9L151.4 390z"/></svg>
-            Sunny's Design
+            <svg viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg">
+                <path d="M512 256c0 .5 0 1-0.1 1.5c-2.4 36.6-32.9 65.6-70.1 65.6l-38 0c-14.7 0-27.4 10.3-30.8 24.7l-4.5 19.3C358 396.4 329.9 416 300.5 416l-44.5 0c-114.9 0-208-93.1-208-208S141.1 0 256 0S464 93.1 464 208c0 13.6-1.3 27-3.9 40c2.3-2.1 4.8-4 7.4-5.9c13.7-10.1 32.7-10.1 46.4 0c14.7 10.7 21 29.3 15.6 46.5c-1.3 4.1-3.2 8-5.7 11.5c1.4 1.9 2.7 3.9 3.8 5.9H512zM176 144a32 32 0 1 0 -64 0 32 32 0 1 0 64 0zm112-48a32 32 0 1 0 0-64 32 32 0 1 0 0 64zm112 48a32 32 0 1 0 -64 0 32 32 0 1 0 64 0zM352 288a32 32 0 1 0 0-64 32 32 0 1 0 0 64z"/>
+            </svg>
+            Sunny's Gallery
         </a>
         <nav>
             <ul>
-                <li><a href="#gallery">Work</a></li>
+                <li><a href="#gallery">Gallery</a></li>
                 <li><a href="#about">About</a></li>
                 <li><a href="#contact">Contact</a></li>
             </ul>
@@ -631,57 +656,62 @@
     </header>
     
     <section class="hero">
-        <img src="images/hero-bg.jpg" alt="Graphic Design Background" class="hero-background" onerror="this.style.display='none'">
+        <div class="shape"></div>
+        <div class="shape"></div>
+        <div class="shape"></div>
         <div class="hero-content">
-            <h1>Graphic Designs & Illustrations</h1>
-            <p>Bringing brands to life through vector art, digital illustrations, and compelling visual identity.</p>
-            <a href="#gallery" class="hero-btn">View My Designs</a>
+            <h1>Where Creativity Finds Its Canvas</h1>
+            <p>A curated collection of modern art and captivating graphic designs.</p>
+            <a href="#gallery" class="hero-btn">Explore Gallery</a>
         </div>
     </section>
 
     <section id="gallery" class="container">
-        <h2 class="section-title">Selected Works</h2>
+        <h2 class="section-title">Featured Works</h2>
         
         <div class="category-filters" id="filters">
             <button class="filter-btn active" data-filter="all">All</button>
-            <button class="filter-btn" data-filter="Social Media">Social Media</button> 
-            <button class="filter-btn" data-filter="Branding">Branding</button>
+            <button class="filter-btn" data-filter="Digital Art">Digital Art</button>
+            <button class="filter-btn" data-filter="Illustration">Illustration</button>
             <button class="filter-btn" data-filter="Posters">Posters</button>
-            <button class="filter-btn" data-filter="Illustrations">Illustrations</button>
         </div>
         
         <div class="gallery">
-            <div class="gallery-grid">
+            <div class="gallery-grid" id="gallery-grid">
                 </div>
         </div>
     </section>
     
     <section id="about" class="container about">
-        <h2 class="section-title">About the Designer</h2>
+        <h2 class="section-title">About Me</h2>
         <div class="about-content">
-            <img src="images/profile.jpg" alt="Sunny Profile" class="about-image" onerror="this.src='data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' width=\'400\' height=\'400\'><rect width=\'400\' height=\'400\' fill=\'%23e9ecef\'/><text x=\'50%\' y=\'50%\' font-family=\'sans-serif\' font-size=\'20\' fill=\'%236c757d\' text-anchor=\'middle\' dominant-baseline=\'middle\'>Profile Image</text></svg>'">
+            <img src="profile.png" alt="Sunny's Profile Picture" class="about-image" onerror="this.src='data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' width=\'400\' height=\'400\'><rect width=\'400\' height=\'400\' fill=\'%23e9ecef\'/><text x=\'50%\' y=\'50%\' dominant-baseline=\'middle\' text-anchor=\'middle\' font-family=\'sans-serif\' font-size=\'20px\' fill=\'%236c757d\'>Profile Image Placeholder</text></svg>'">
             <div class="about-text">
-                <h3>Hi, I'm Sunny</h3>
-                <p>I am a multidisciplinary <strong>Graphic Designer and Illustrator</strong> passionate about visual storytelling. My work bridges the gap between artistic expression and strategic communication, helping brands stand out in a crowded digital landscape.</p>
-                <p>Specializing in vector art, brand identity, and digital illustration, I create designs that are not only visually striking but also meaningful. Whether it's a logo that defines a brand or an illustration that tells a story, I approach every project with creativity and precision.</p>
-                <p>Explore my portfolio to see how I translate ideas into impactful visuals.</p>
-                <a href="https://your-main-portfolio-url.com" class="portfolio-link">Back to Main Portfolio</a>
+                <h3>Hello, I'm Sunny</h3>
+                <p>I'm a passionate digital artist and graphic designer with a love for creating visually compelling narratives. My journey in the arts began over a decade ago, and since then I've developed a distinctive style that blends traditional techniques with modern digital tools.</p>
+                <p>This gallery represents my creative evolution, featuring works that range from vibrant digital paintings to minimalist vector art. Each piece is a reflection of my exploration into the intersection of technology and artistic expression.</p>
+                <p>When I'm not creating art, you can find me teaching workshops, collaborating with other artists, or exploring new mediums to expand my creative horizons.</p>
+                <a href="#gallery" class="portfolio-link">View Full Portfolio</a>
             </div>
         </div>
     </section>
 
     <section id="contact" class="container" style="padding-bottom: 80px;">
-        <h2 class="section-title">Let's Create Together</h2>
+        <h2 class="section-title">Get In Touch</h2>
         <div style="max-width: 800px; margin: 0 auto; text-align: center;">
-            <p style="font-size: 1.1rem; margin-bottom: 30px;">Looking for a custom design or illustration? Feel free to reach out.</p>
-            <div style="display: flex; justify-content: center; gap: 20px; flex-wrap: wrap;">
-                <a href="mailto:taiparthisunny124@gmail.com" style="display: inline-flex; align-items: center; gap: 8px; color: var(--primary); text-decoration: none; font-weight: 500;">
-                    <svg viewBox="0 0 512 512" style="font-size: 1.2rem;"><path d="M48 64C21.5 64 0 85.5 0 112c0 15.1 7.1 29.3 19.2 38.4L236.8 313.6c11.4 8.5 27 8.5 38.4 0L492.8 150.4c12.1-9.1 19.2-23.3 19.2-38.4c0-26.5-21.5-48-48-48H48zM0 176V384c0 35.3 28.7 64 64 64H448c35.3 0 64-28.7 64-64V176L294.4 339.2c-22.8 17.1-54 17.1-76.8 0L0 176z"/></svg> 
-                    taiparthisunny124@gmail.com
+            <p style="font-size: 1.1rem; margin-bottom: 30px;">For inquiries, collaborations, or just to say hello, feel free to reach out via email or phone.</p>
+            <div style="display: flex; justify-content: center; gap: 30px; flex-wrap: wrap;">
+                <a href="mailto:hello@example.com" class="icon-box" style="display: inline-flex; align-items: center; color: var(--primary); text-decoration: none; font-weight: 500;">
+                    <svg viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M48 64C21.5 64 0 85.5 0 112c0 15.1 7.1 29.3 19.2 38.4L236.8 313.6c11.4 8.5 27 8.5 38.4 0L492.8 150.4c12.1-9.1 19.2-23.3 19.2-38.4c0-26.5-21.5-48-48-48H48zM0 176V384c0 35.3 28.7 64 64 64H448c35.3 0 64-28.7 64-64V176L294.4 339.2c-22.8 17.1-54 17.1-76.8 0L0 176z"/>
+                    </svg>
+                    hello@example.com
                 </a>
-                <a href="tel:8331844559" style="display: inline-flex; align-items: center; gap: 8px; color: var(--primary); text-decoration: none; font-weight: 500;">
-                    <svg viewBox="0 0 512 512" style="font-size: 1.2rem;"><path d="M164.9 24.6c-7.7-18.6-28-28.5-47.4-23.2l-88 24C12.1 30.2 0 46 0 64C0 311.4 200.6 512 448 512c18 0 33.8-12.1 38.6-29.5l24-88c5.3-19.4-4.6-39.7-23.2-47.4l-96-40c-16.3-6.8-35.2-2.1-46.3 11.6L304.7 368C234.3 334.7 177.3 277.7 144 207.3L193.3 167c13.7-11.2 18.4-30 11.6-46.3l-40-96z"/></svg> 
-                    8331844559
+                <a href="tel:+1234567890" class="icon-box" style="display: inline-flex; align-items: center; color: var(--primary); text-decoration: none; font-weight: 500;">
+                    <svg viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M164.9 24.6c-7.7-18.6-28-28.5-47.4-23.2l-88 24C12.1 30.2 0 46 0 64C0 311.4 200.6 512 448 512c18 0 33.8-12.1 38.6-29.5l24-88c5.3-19.4-4.6-39.7-23.2-47.4l-96-40c-16.3-6.8-35.2-2.1-46.3 11.6L304.7 368C234.3 334.7 177.3 277.7 144 207.3L193.3 167c13.7-11.2 18.4-30 11.6-46.3l-40-96z"/>
+                    </svg>
+                    +1 (234) 567-890
                 </a>
             </div>
         </div>
@@ -689,21 +719,13 @@
 
     <footer>
         <div class="footer-socials">
-            <a href="#" aria-label="Instagram">
-                <svg viewBox="0 0 448 512"><path d="M224.1 141c-63.6 0-114.9 51.3-114.9 114.9s51.3 114.9 114.9 114.9S339 319.5 339 255.9 287.7 141 224.1 141zm0 189.6c-41.1 0-74.7-33.5-74.7-74.7s33.5-74.7 74.7-74.7 74.7 33.5 74.7 74.7-33.6 74.7-74.7 74.7zm146.4-194.3c0 14.9-12 26.8-26.8 26.8-14.9 0-26.8-12-26.8-26.8s12-26.8 26.8-26.8 26.8 12 26.8 26.8zm76.1 27.2c-1.7-35.9-9.9-67.7-36.2-93.9-26.2-26.2-58-34.4-93.9-36.2-37-2.1-147.9-2.1-184.9 0-35.8 1.7-67.6 9.9-93.9 36.1s-34.4 58-36.2 93.9c-2.1 37-2.1 147.9 0 184.9 1.7 35.9 9.9 67.7 36.2 93.9s58 34.4 93.9 36.2c37 2.1 147.9 2.1 184.9 0 35.9-1.7 67.7-9.9 93.9-36.2 26.2-26.2 34.4-58 36.2-93.9 2.1-37 2.1-147.8 0-184.8zM398.8 388c-7.8 19.6-22.9 34.7-42.6 42.6-29.5 11.7-99.5 9-132.1 9s-102.7 2.6-132.1-9c-19.6-7.8-34.7-22.9-42.6-42.6-11.7-29.5-9-99.5-9-132.1s-2.6-102.7 9-132.1c7.8-19.6 22.9-34.7 42.6-42.6 29.5-11.7 99.5-9 132.1-9s102.7-2.6 132.1 9c19.6 7.8 34.7 22.9 42.6 42.6 11.7 29.5 9 99.5 9 132.1s2.7 102.7-9 132.1z"/></svg>
-            </a>
-            <a href="#" aria-label="Behance">
-                <svg viewBox="0 0 512 512"><path d="M232 237.2c31.8-15.2 48.4-38.2 48.4-74 0-70.6-52.6-87.8-113.3-87.8H0v354.4h171.8c64.4 0 124.9-30.9 124.9-102.9 0-44.5-21.1-77.4-64.7-89.7zM68.3 134.3h88.2c44.9 0 58.4 17.9 58.4 38.6 0 25-13.6 43.1-61.7 43.1H68.3V134.3zm93.6 228.6H68.3V264.4h95.3c50 0 65.7 16.2 65.7 48.9 0 32.7-15.6 49.6-67.4 49.6zM415.6 175c-59.6 0-98.9 44.9-98.9 110.8 0 71.3 40.5 109.4 103.5 109.4 48.4 0 78.5-20 90.9-50.7h-59.4c-9.1 11.5-24 18.2-39.6 18.2-34.1 0-46.7-23.7-47.7-46.7h149.3c1-75.1-38.5-141-98.1-141zm-44.9 83c6.6-26.6 23.4-44.2 46.1-44.2 24.5 0 36.3 17.1 38.5 44.2h-84.6zM368.5 146.9h95.6v-34.3h-95.6v34.3z"/></svg>
-            </a>
-            <a href="#" aria-label="Dribbble">
-                <svg viewBox="0 0 512 512"><path d="M256 8C119.25 8 8 119.25 8 256s111.25 248 248 248 248-111.25 248-248S392.75 8 256 8zm163.97 114.36c22.95 27.33 39.03 61.1 46.06 98.42-26.38-5.91-56.57-12.87-88.8-12.87-25.7 0-49.97 3.51-70.76 8.78-21.78-48.45-47.51-96.65-76.35-141.44 38.74-8.8 79.46-8.8 118.2 0 28.52 11.2 53.76 28 71.65 47.11zm-152.8-59.54c27.18 43.14 51.5 89.26 71.9 136.19-27.1 6.56-56.14 10.15-85.95 10.15-39.54 0-76.77-5.96-109.84-15.7 32.55-52.09 72.03-99.76 116.14-138.92 2.59.81 5.17 1.63 7.75 2.58l-.01 5.7zm-143.27 28.7c-40.08 43.21-65.41 100.22-69.58 162.7 31.97 10.5 70.83 17.07 112.55 17.07 19.34 0 38.4-.95 56.96-2.6-18.06 43.58-39.69 85.12-64.29 123.6-47.34-21.5-84.44-59.58-106.1-106.02 12.03-4.14 24.36-7.86 36.96-11.05 13.91-44.49 31.42-87.35 52.02-127.39l-18.52 56.31zm32.65 244.75c23.08-36.81 43.43-76.31 60.5-117.5 35.84 9.53 74.9 22.01 107.03 54.7-18.06 39.23-49.3 71.3-88.64 89.1-24.84-6.49-51.56-14.73-78.89-26.3zm191.07-55.77c-30.82-31.5-68.56-43.78-102.24-52.4 20.3-43.19 36.56-88.24 48.33-134.2 27.28 0 54.38 5.75 79.28 11.23-3.69 66.04-32.93 125.86-81.82 171.19a224.22 224.22 0 0156.45 4.18z"/></svg>
-            </a>
-            <a href="https://linkedin.com/in/tatiparthi-sunny" aria-label="LinkedIn">
-                <svg viewBox="0 0 448 512"><path d="M100.28 448H7.4V148.9h92.88zM53.79 108.1C24.09 108.1 0 83.5 0 53.8a53.79 53.79 0 0 1 107.58 0c0 29.7-24.1 54.3-53.79 54.3zM447.9 448h-92.68V302.4c0-34.7-.7-79.2-48.29-79.2-48.29 0-55.69 37.7-55.69 76.7V448h-92.78V148.9h89.08v40.8h1.3c12.4-23.5 42.69-48.3 87.88-48.3 94 0 111.28 61.9 111.28 142.3V448z"/></svg>
-            </a>
+            <a href="#">Instagram</a>
+            <a href="#">Behance</a>
+            <a href="#">Dribbble</a>
+            <a href="#">LinkedIn</a>
         </div>
         <div class="footer-bottom">
-            <p>&copy; <span id="current-year"></span> Sunny's Design Gallery. All rights reserved.</p>
+            <p>&copy; <span id="current-year"></span> Sunny's Art & Design Gallery. All rights reserved.</p>
         </div>
     </footer>
     
@@ -715,7 +737,7 @@
                     <div class="modal-header">
                         <div>
                             <h3 class="modal-title" id="modal-title"></h3>
-                            <p id="modal-category" style="color: var(--dark-gray);"></p>
+                            <p id="modal-artist" style="color: var(--dark-gray);"></p>
                         </div>
                     </div>
                     <p class="modal-description" id="modal-description"></p>
@@ -740,6 +762,151 @@
             // Set current year in footer
             document.getElementById('current-year').textContent = new Date().getFullYear();
 
+            // Initialize DOM elements
+            const galleryGrid = document.getElementById('gallery-grid');
+            const imageModal = document.getElementById('image-modal');
+            const filterButtons = document.querySelectorAll('.filter-btn');
+            
+            // Image Modal Elements
+            const modalImg = document.getElementById('modal-img');
+            const modalTitle = document.getElementById('modal-title');
+            const modalArtist = document.getElementById('modal-artist');
+            const modalDescription = document.getElementById('modal-description');
+            const modalMedium = document.getElementById('modal-medium');
+            const modalDimensions = document.getElementById('modal-dimensions');
+            const modalYear = document.getElementById('modal-year');
+            const imageModalClose = document.getElementById('image-modal-close');
+            const prevBtn = document.getElementById('prev-btn');
+            const nextBtn = document.getElementById('next-btn');
+
+            // Artwork Data (Using relative GitHub paths)
+            const galleryData = [
+                {
+                    "id": 1,
+                    "src": "42993-3840x2160-desktop-4k-arcane-league-of-legends-wallpaper-photo (1) (1).jpg",
+                    "title": "Arcane Cityscape",
+                    "artist": "Sunny",
+                    "description": "A dramatic 4K wallpaper featuring the neon-lit streets of Piltover from Arcane: League of Legends.",
+                    "medium": "Digital Painting (Photoshop)",
+                    "dimensions": "3840 x 2160 px",
+                    "year": "2023",
+                    "category": "Digital Art"
+                },
+                {
+                    "id": 2,
+                    "src": "42993-3840x2160-desktop-4k-arcane-league-of-legends-wallpaper-photo (1).jpg",
+                    "title": "Zaun Underworld",
+                    "artist": "Sunny",
+                    "description": "Moody atmospheric rendering of the underground city Zaun from Arcane series.",
+                    "medium": "Digital Painting (Procreate)",
+                    "dimensions": "3840 x 2160 px",
+                    "year": "2023",
+                    "category": "Digital Art"
+                },
+                {
+                    "id": 3,
+                    "src": "Plant dragon by AlviaAlcedo on DeviantArt (1).jpeg",
+                    "title": "Floral Dragon",
+                    "artist": "Sunny (Inspired by AlviaAlcedo)",
+                    "description": "Fantasy creature design blending botanical elements with draconic features.",
+                    "medium": "Digital Illustration (Procreate)",
+                    "dimensions": "3000 x 2000 px",
+                    "year": "2022",
+                    "category": "Illustration"
+                },
+                {
+                    "id": 4,
+                    "src": "Plant dragon by AlviaAlcedo on DeviantArt.jpeg",
+                    "title": "Nature's Guardian",
+                    "artist": "Sunny (Inspired by AlviaAlcedo)",
+                    "description": "Mythical dragon creature composed of living plants and flowers.",
+                    "medium": "Digital Painting (Photoshop)",
+                    "dimensions": "3500 x 2500 px",
+                    "year": "2022",
+                    "category": "Illustration"
+                },
+                {
+                    "id": 5,
+                    "src": "85112-1440x2560-mobile-hd-arcane-league-of-legends-wallpaper-photo.jpg",
+                    "title": "Arcane Character Portrait",
+                    "artist": "Sunny",
+                    "description": "Stylized mobile wallpaper featuring key characters from Arcane series.",
+                    "medium": "Digital Art (Illustrator)",
+                    "dimensions": "1440 x 2560 px",
+                    "year": "2023",
+                    "category": "Digital Art"
+                },
+                {
+                    "id": 6,
+                    "src": "Purple Minimalist Happy Birthday Flyer (A4).jpg",
+                    "title": "Birthday Celebration Flyer",
+                    "artist": "Sunny",
+                    "description": "Elegant minimalist birthday flyer design with modern typography.",
+                    "medium": "Graphic Design (Illustrator, Photoshop)",
+                    "dimensions": "A4 (2480 x 3508 px)",
+                    "year": "2024",
+                    "category": "Posters"
+                }
+            ];
+
+            let currentFilteredData = [...galleryData];
+            let currentIndex = 0;
+
+            // Render Gallery Function
+            function renderGallery(items) {
+                if (!galleryGrid) return;
+                
+                galleryGrid.innerHTML = '';
+                
+                if (items.length === 0) {
+                    galleryGrid.innerHTML = 
+                        '<p style="text-align: center; color: var(--dark-gray); padding: 40px;">No artworks found in this category.</p>';
+                    return;
+                }
+                
+                items.forEach(item => {
+                    const galleryItem = document.createElement('div');
+                    galleryItem.className = 'gallery-item';
+                    galleryItem.dataset.id = item.id;
+                    galleryItem.innerHTML = `
+                        <img src="${item.src}" alt="${item.title}" class="gallery-img" loading="lazy">
+                        <div class="gallery-overlay">
+                            <div>
+                                <div class="gallery-title">${item.title}</div>
+                                <div class="gallery-category">${item.artist}</div>
+                            </div>
+                        </div>
+                    `;
+                    galleryGrid.appendChild(galleryItem);
+                });
+            }
+
+            // Update Modal Content
+            function updateModalContent(index) {
+                const artwork = currentFilteredData[index];
+                if (artwork) {
+                    modalImg.src = artwork.src;
+                    modalImg.alt = artwork.title;
+                    modalTitle.textContent = artwork.title;
+                    modalArtist.textContent = `By ${artwork.artist}`;
+                    modalDescription.textContent = artwork.description;
+                    modalMedium.textContent = `Medium: ${artwork.medium || 'N/A'}`;
+                    modalDimensions.textContent = `Dimensions: ${artwork.dimensions || 'N/A'}`;
+                    modalYear.textContent = `Year: ${artwork.year || 'N/A'}`;
+                }
+            }
+
+            // Modal Logic
+            function openModal(modalElement) { 
+                modalElement.classList.add('active'); 
+                document.body.style.overflow = 'hidden'; 
+            }
+            
+            function closeModal(modalElement) { 
+                modalElement.classList.remove('active'); 
+                document.body.style.overflow = 'auto'; 
+            }
+
             // Smooth scrolling for navigation links
             document.querySelectorAll('nav a').forEach(anchor => {
                 anchor.addEventListener('click', function(e) {
@@ -756,155 +923,25 @@
                 });
             });
 
-            // Note: Use relative paths (images/filename.jpg) for GitHub Pages
-            const galleryData = [
-                {
-                    "id": 1,
-                    "src": "images/nike-ad.jpg", 
-                    "title": "Nike Air Jordan Promo",
-                    "artist": "Sunny",
-                    "description": "High-impact social media creative for Nike Air Jordan. Uses bold typography layered behind the product to create depth and emphasis on the brand identity.",
-                    "medium": "Photoshop / Social Media",
-                    "dimensions": "1080 x 1350",
-                    "year": "2024",
-                    "category": "Branding"
-                },
-                {
-                    "id": 2,
-                    "src": "images/travel-flyer.jpg",
-                    "title": "Travel Agency Campaign",
-                    "artist": "Sunny",
-                    "description": "Promotional travel flyer design using image masking and a clean, fresh color palette to evoke a sense of adventure. Structured layout for pricing and package details.",
-                    "medium": "Social Media Design",
-                    "dimensions": "1080 x 1350",
-                    "year": "2024",
-                    "category": "Posters"
-                },
-                {
-                    "id": 3,
-                    "src": "images/rc-car-ad.jpg",
-                    "title": "E-Commerce Product Ad",
-                    "artist": "Sunny",
-                    "description": "Dark-themed product advertisement for a remote control car. Focuses on sleek lighting, product isolation, and clear call-to-action elements for conversion.",
-                    "medium": "Product Advertising",
-                    "dimensions": "1080 x 1080",
-                    "year": "2023",
-                    "category": "Social Media"
-                },
-                {
-                    "id": 4,
-                    "src": "images/time-tips.jpg",
-                    "title": "Time Management Infographic",
-                    "artist": "Sunny",
-                    "description": "Typographic informational graphic sharing productivity tips. Uses a textured retro style with bold, contrasting fonts to grab attention on social feeds.",
-                    "medium": "Typography / Info Design",
-                    "dimensions": "1080 x 1080",
-                    "year": "2023",
-                    "category": "Social Media"
-                },
-                {
-                    "id": 5,
-                    "src": "images/eco-brand.jpg", 
-                    "title": "EcoBrand Identity",
-                    "artist": "Sunny",
-                    "description": "Complete brand identity package for a sustainable clothing line.",
-                    "medium": "Branding / Logo Design",
-                    "dimensions": "Multiple",
-                    "year": "2023",
-                    "category": "Branding"
-                }
-            ];
-            
-            // Initialize the gallery
-            const galleryGrid = document.querySelector('.gallery-grid');
-            const imageModal = document.getElementById('image-modal');
-            const filterButtons = document.querySelectorAll('.filter-btn');
-            const modalImg = document.getElementById('modal-img');
-            const modalTitle = document.getElementById('modal-title');
-            const modalCategory = document.getElementById('modal-category');
-            const modalDescription = document.getElementById('modal-description');
-            const modalMedium = document.getElementById('modal-medium');
-            const modalDimensions = document.getElementById('modal-dimensions');
-            const modalYear = document.getElementById('modal-year');
-            const imageModalClose = document.getElementById('image-modal-close');
-            const prevBtn = document.getElementById('prev-btn');
-            const nextBtn = document.getElementById('next-btn');
-
-            let currentFilteredData = [...galleryData];
-            let currentIndex = 0;
-
-            // Render gallery function
-            function renderGallery(items) {
-                galleryGrid.innerHTML = '';
-                
-                if (items.length === 0) {
-                    galleryGrid.innerHTML = 
-                        '<p style="text-align: center; color: var(--dark-gray); padding: 40px; width: 100%;">No designs found in this category.</p>';
-                    return;
-                }
-                
-                items.forEach(item => {
-                    const galleryItem = document.createElement('div');
-                    galleryItem.className = 'gallery-item';
-                    galleryItem.dataset.id = item.id;
-                    galleryItem.innerHTML = `
-                        <img src="${item.src}" alt="${item.title}" class="gallery-img" loading="lazy" onerror="this.src='data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' width=\'400\' height=\'400\'><rect width=\'400\' height=\'400\' fill=\'%23e9ecef\'/><text x=\'50%\' y=\'50%\' font-family=\'sans-serif\' font-size=\'20\' fill=\'%236c757d\' text-anchor=\'middle\' dominant-baseline=\'middle\'>Image not found</text></svg>'">
-                        <div class="gallery-overlay">
-                            <div>
-                                <div class="gallery-title">${item.title}</div>
-                                <div class="gallery-category">${item.category}</div>
-                            </div>
-                        </div>
-                    `;
-                    galleryGrid.appendChild(galleryItem);
-                });
-            }
-
-            // Update modal content
-            function updateModalContent(index) {
-                const artwork = currentFilteredData[index];
-                if (artwork) {
-                    modalImg.src = artwork.src;
-                    modalImg.alt = artwork.title;
-                    modalTitle.textContent = artwork.title;
-                    modalCategory.textContent = artwork.category;
-                    modalDescription.textContent = artwork.description;
-                    modalMedium.textContent = `Medium: ${artwork.medium || 'N/A'}`;
-                    modalDimensions.textContent = `Dimensions: ${artwork.dimensions || 'N/A'}`;
-                    modalYear.textContent = `Year: ${artwork.year || 'N/A'}`;
-                }
-            }
-
-            // Modal functions
-            function openModal() { 
-                imageModal.classList.add('active'); 
-                document.body.style.overflow = 'hidden'; 
-            }
-            
-            function closeModal() { 
-                imageModal.classList.remove('active'); 
-                document.body.style.overflow = 'auto'; 
-            }
-
-            // Event listeners
+            // Event Listeners
             galleryGrid.addEventListener('click', (e) => {
                 const item = e.target.closest('.gallery-item');
                 if (item) {
                     currentIndex = currentFilteredData.findIndex(art => art.id == item.dataset.id);
                     if (currentIndex !== -1) {
                         updateModalContent(currentIndex);
-                        openModal();
+                        openModal(imageModal);
                     }
                 }
             });
 
-            imageModalClose.addEventListener('click', closeModal);
-            imageModal.addEventListener('click', (e) => e.target === imageModal && closeModal());
+            imageModalClose.addEventListener('click', () => closeModal(imageModal));
+            imageModal.addEventListener('click', (e) => e.target === imageModal && closeModal(imageModal));
             
             window.addEventListener('keydown', (e) => {
                 if (imageModal.classList.contains('active')) {
                     if (e.key === 'Escape') {
-                        closeModal();
+                        closeModal(imageModal);
                     } else if (e.key === 'ArrowRight') {
                         currentIndex = (currentIndex + 1) % currentFilteredData.length; 
                         updateModalContent(currentIndex);
@@ -915,19 +952,18 @@
                 }
             });
 
-            // Filter logic
+            // Filter Logic
             filterButtons.forEach(button => {
                 button.addEventListener('click', () => {
                     filterButtons.forEach(btn => btn.classList.remove('active'));
                     button.classList.add('active');
                     const filter = button.dataset.filter;
-                    currentFilteredData = filter === 'all' ? [...galleryData] : 
-                        galleryData.filter(item => item.category === filter);
+                    currentFilteredData = (filter === 'all') ? [...galleryData] : galleryData.filter(item => item.category === filter);
                     renderGallery(currentFilteredData);
                 });
             });
 
-            // Modal navigation
+            // Modal Navigation Logic
             nextBtn.addEventListener('click', () => { 
                 currentIndex = (currentIndex + 1) % currentFilteredData.length; 
                 updateModalContent(currentIndex); 
