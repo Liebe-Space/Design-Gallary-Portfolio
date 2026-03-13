@@ -21,7 +21,6 @@
             --shadow-color: rgba(0, 0, 0, 0.1);
             --section-bg: #f8f9fa;
             --gradient-primary: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
-            --gradient-accent: linear-gradient(135deg, var(--accent) 0%, var(--accent-light) 100%);
         }
 
         /* --- Global Styles --- */
@@ -29,12 +28,16 @@
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            /* Replaced Google Fonts with a modern system font stack */
             font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
         }
 
         html { scroll-behavior: smooth; }
-        body { background-color: var(--white); color: var(--charcoal); line-height: 1.6; }
+        body { 
+            background-color: var(--white); 
+            color: var(--charcoal); 
+            line-height: 1.6; 
+            overflow-x: hidden; /* Prevents horizontal scroll on mobile */
+        }
         .container { padding: 50px 5%; max-width: 1400px; margin: 0 auto; }
         section { padding: 80px 0; }
 
@@ -60,6 +63,7 @@
             display: flex;
             align-items: center;
             gap: 10px;
+            z-index: 101; /* Keeps logo above mobile menu */
         }
         
         .logo svg {
@@ -72,6 +76,7 @@
             display: flex;
             list-style: none;
             gap: 25px;
+            transition: 0.3s ease-in-out;
         }
 
         nav a {
@@ -84,9 +89,7 @@
             transition: color 0.3s;
         }
 
-        nav a:hover {
-            color: var(--primary);
-        }
+        nav a:hover { color: var(--primary); }
 
         nav a::after {
             content: '';
@@ -99,22 +102,38 @@
             transition: width 0.3s;
         }
 
-        nav a:hover::after {
-            width: 100%;
+        nav a:hover::after { width: 100%; }
+
+        /* Hamburger Menu Setup */
+        .menu-toggle {
+            display: none;
+            flex-direction: column;
+            justify-content: space-between;
+            width: 30px;
+            height: 21px;
+            cursor: pointer;
+            z-index: 101;
         }
 
-        /* --- Hero Section (Modern & Animated) --- */
+        .menu-toggle .bar {
+            height: 3px;
+            width: 100%;
+            background-color: var(--charcoal);
+            border-radius: 3px;
+            transition: all 0.3s ease-in-out;
+        }
+
+        /* --- Hero Section --- */
         .hero {
             position: relative; 
             height: 85vh; 
-            min-height: 600px;
+            min-height: 500px;
             display: flex; 
             align-items: center;
             justify-content: center; 
             text-align: center; 
             color: var(--white); 
             overflow: hidden;
-            /* Animated CSS Gradient Background */
             background: linear-gradient(-45deg, #4361ee, #f72585, #4895ef, #3a0ca3);
             background-size: 400% 400%;
             animation: gradientBG 15s ease infinite;
@@ -126,7 +145,6 @@
             100% { background-position: 0% 50%; }
         }
         
-        /* Floating Animated Shapes */
         .shape {
             position: absolute;
             border-radius: 50%;
@@ -136,9 +154,9 @@
             z-index: 0;
         }
 
-        .shape:nth-child(1) { width: 300px; height: 300px; top: 10%; left: 10%; animation-duration: 12s; }
-        .shape:nth-child(2) { width: 150px; height: 150px; bottom: 20%; right: 15%; animation-duration: 9s; animation-direction: alternate-reverse; }
-        .shape:nth-child(3) { width: 200px; height: 200px; bottom: 10%; left: 30%; animation-duration: 15s; }
+        .shape:nth-child(1) { width: 30vw; height: 30vw; max-width: 300px; max-height: 300px; top: 10%; left: 10%; animation-duration: 12s; }
+        .shape:nth-child(2) { width: 15vw; height: 15vw; max-width: 150px; max-height: 150px; bottom: 20%; right: 15%; animation-direction: alternate-reverse; }
+        .shape:nth-child(3) { width: 20vw; height: 20vw; max-width: 200px; max-height: 200px; bottom: 10%; left: 30%; animation-duration: 15s; }
 
         @keyframes float {
             0% { transform: translateY(0) scale(1); }
@@ -149,12 +167,13 @@
             position: relative;
             z-index: 1;
             max-width: 800px; 
-            padding: 0 2rem; 
+            padding: 0 5%; 
             animation: fadeInDown 1.2s ease-out; 
         }
         
         .hero h1 { 
-            font-size: 3.8rem; 
+            /* Fluid Typography: Scales smoothly between 2.2rem and 3.8rem based on screen width */
+            font-size: clamp(2.2rem, 5vw + 1rem, 3.8rem); 
             font-weight: 800; 
             margin-bottom: 1.5rem;
             line-height: 1.2;
@@ -162,7 +181,7 @@
         }
         
         .hero p { 
-            font-size: 1.3rem; 
+            font-size: clamp(1rem, 2vw + 0.5rem, 1.3rem); 
             font-weight: 300; 
             margin-bottom: 2.5rem;
             opacity: 0.95;
@@ -191,42 +210,39 @@
         /* --- Category Filters --- */
         .category-filters { 
             text-align: center; 
-            padding: 40px 20px 20px; 
+            padding: 20px 0 30px; 
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 10px;
         }
         
         .filter-btn {
             background: none; 
             border: 1px solid var(--medium-gray); 
             border-radius: 50px; 
-            padding: 10px 25px;
-            margin: 5px; 
+            padding: 10px 20px;
             cursor: pointer; 
             font-weight: 500; 
             color: var(--dark-gray); 
             transition: all 0.3s ease;
+            white-space: nowrap;
         }
         
-        .filter-btn:hover { 
+        .filter-btn:hover, .filter-btn.active { 
             background: var(--gradient-primary); 
             color: var(--white); 
             border-color: transparent;
             transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(67, 97, 238, 0.2);
-        }
-        
-        .filter-btn.active { 
-            background: var(--gradient-primary); 
-            color: var(--white); 
-            border-color: transparent;
             box-shadow: 0 4px 12px rgba(67, 97, 238, 0.3);
         }
 
         /* --- Gallery Section --- */
         .gallery { 
-            padding: 20px 5% 50px; 
+            padding: 30px 5%; 
             background-color: var(--light-gray);
             border-radius: 20px;
-            margin: 40px 0;
+            margin-bottom: 40px;
         }
         
         .gallery-grid { 
@@ -247,89 +263,40 @@
             background: var(--white);
         }
         
-        @keyframes fadeInUp { 
-            from { opacity: 0; transform: translateY(20px); } 
-            to { opacity: 1; transform: translateY(0); } 
-        }
+        @keyframes fadeInUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes fadeInDown { from { opacity: 0; transform: translateY(-20px); } to { opacity: 1; transform: translateY(0); } }
         
-        @keyframes fadeInDown { 
-            from { opacity: 0; transform: translateY(-20px); } 
-            to { opacity: 1; transform: translateY(0); } 
-        }
-        
-        .gallery-item:hover { 
-            transform: translateY(-5px); 
-            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15); 
-        }
-        
-        .gallery-img { 
-            width: 100%; 
-            height: auto; 
-            display: block; 
-            transition: transform 0.5s ease; 
-        }
-        
-        .gallery-item:hover .gallery-img { 
-            transform: scale(1.05); 
-        }
+        .gallery-item:hover { transform: translateY(-5px); box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15); }
+        .gallery-img { width: 100%; height: auto; display: block; transition: transform 0.5s ease; }
+        .gallery-item:hover .gallery-img { transform: scale(1.05); }
         
         .gallery-overlay {
             position: absolute; 
-            bottom: 0; 
-            left: 0; 
-            right: 0; 
+            bottom: 0; left: 0; right: 0; 
             background: linear-gradient(to top, rgba(0, 0, 0, 0.8), transparent);
             padding: 20px; 
             color: white; 
             opacity: 0; 
             transform: translateY(10px); 
             transition: all 0.3s ease;
-            display: flex; 
-            justify-content: space-between; 
-            align-items: flex-end;
         }
         
-        .gallery-item:hover .gallery-overlay { 
-            opacity: 1; 
-            transform: translateY(0); 
-        }
-        
-        .gallery-title { 
-            font-weight: 600; 
-            margin-bottom: 5px; 
-        }
-        
-        .gallery-category { 
-            font-size: 0.9rem; 
-            opacity: 0.8; 
-        }
+        .gallery-item:hover .gallery-overlay { opacity: 1; transform: translateY(0); }
+        .gallery-title { font-weight: 600; margin-bottom: 5px; }
+        .gallery-category { font-size: 0.9rem; opacity: 0.8; }
 
         /* --- About Section --- */
         .about { 
             background-color: var(--white);
             position: relative;
-            overflow: hidden;
-        }
-        
-        .about::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: var(--gradient-primary);
-            opacity: 0.03;
-            z-index: -1;
         }
         
         .section-title { 
             text-align: center; 
-            font-size: 2.5rem; 
+            font-size: clamp(2rem, 4vw, 2.5rem); 
             margin-bottom: 40px; 
             font-weight: 700; 
             color: var(--charcoal); 
-            position: relative;
         }
         
         .section-title::after {
@@ -350,34 +317,21 @@
         
         .about-image { 
             flex: 1; 
+            width: 100%;
             max-width: 400px; 
             border-radius: 12px; 
             box-shadow: 0 15px 40px rgba(0,0,0,0.1); 
             transition: transform 0.5s;
         }
         
-        .about-image:hover {
-            transform: scale(1.02);
-        }
-        
-        .about-text { 
-            flex: 2; 
-        }
-        
-        .about-text h3 {
-            font-size: 1.8rem;
-            margin-bottom: 20px;
-            color: var(--primary-dark);
-        }
-        
-        .about-text p {
-            margin-bottom: 20px;
-            font-size: 1.05rem;
-        }
+        .about-image:hover { transform: scale(1.02); }
+        .about-text { flex: 2; }
+        .about-text h3 { font-size: 1.8rem; margin-bottom: 20px; color: var(--primary-dark); }
+        .about-text p { margin-bottom: 20px; font-size: 1.05rem; }
         
         .portfolio-link {
             display: inline-block;
-            margin-top: 20px;
+            margin-top: 10px;
             padding: 12px 25px;
             background: var(--gradient-primary);
             color: white;
@@ -385,17 +339,16 @@
             border-radius: 50px;
             font-weight: 500;
             transition: all 0.3s;
-            box-shadow: 0 4px 15px rgba(67, 97, 238, 0.3);
         }
         
-        .portfolio-link:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 6px 20px rgba(67, 97, 238, 0.4);
-        }
-        
+        .portfolio-link:hover { transform: translateY(-3px); box-shadow: 0 6px 20px rgba(67, 97, 238, 0.4); }
+
+        /* --- Contact Section --- */
+        .icon-box svg { width: 20px; height: 20px; fill: currentColor; margin-right: 8px; }
+
         /* --- Footer --- */
         footer { 
-            padding: 80px 5% 30px; 
+            padding: 60px 5% 30px; 
             text-align: center; 
             background: var(--charcoal); 
             color: var(--white); 
@@ -403,12 +356,7 @@
         }
         
         footer::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 10px;
+            content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 6px;
             background: var(--gradient-primary);
         }
         
@@ -416,218 +364,134 @@
             margin-bottom: 30px;
             display: flex;
             justify-content: center;
-            gap: 20px;
+            gap: 15px;
+            flex-wrap: wrap;
         }
         
         .footer-socials a { 
             color: var(--white); 
             text-decoration: none;
-            font-size: 1rem; 
-            font-weight: 500;
+            font-size: 0.95rem; 
             transition: all 0.3s; 
             opacity: 0.8;
-            padding: 5px 15px;
+            padding: 8px 18px;
             border: 1px solid rgba(255,255,255,0.2);
             border-radius: 50px;
         }
         
         .footer-socials a:hover { 
-            color: var(--white); 
             opacity: 1;
             background: rgba(255,255,255,0.1);
             border-color: var(--primary-light);
         }
         
         .footer-bottom { 
-            margin-top: 40px; 
+            margin-top: 30px; 
             opacity: 0.7; 
             font-size: 0.9rem; 
             padding-top: 20px;
             border-top: 1px solid rgba(255,255,255,0.1);
         }
 
-        /* --- Inline SVG Icons Container --- */
-        .icon-box svg {
-            width: 20px;
-            height: 20px;
-            fill: currentColor;
-            margin-right: 8px;
-        }
-
         /* --- Modal --- */
         .modal {
-            position: fixed; 
-            top: 0; 
-            left: 0; 
-            width: 100%; 
-            height: 100%; 
-            background: rgba(0, 0, 0, 0.9);
-            display: flex; 
-            justify-content: center; 
-            align-items: center; 
-            z-index: 1000;
-            opacity: 0; 
-            pointer-events: none; 
-            transition: opacity 0.3s; 
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%; 
+            background: rgba(0, 0, 0, 0.95);
+            display: flex; justify-content: center; align-items: center; 
+            z-index: 1000; opacity: 0; pointer-events: none; transition: opacity 0.3s; 
             padding: 20px;
         }
         
-        .modal.active { 
-            opacity: 1; 
-            pointer-events: all; 
-        }
+        .modal.active { opacity: 1; pointer-events: all; }
         
         .modal-content {
-            background: white; 
-            border-radius: 12px; 
-            width: 100%;
-            max-height: 90vh; 
-            display: flex; 
-            overflow: hidden; 
-            flex-direction: column; 
-            position: relative;
-            box-shadow: 0 20px 50px rgba(0,0,0,0.3);
+            background: white; border-radius: 12px; width: 100%; max-width: 1100px;
+            max-height: 90vh; display: flex; overflow: hidden; flex-direction: row; 
+            position: relative; box-shadow: 0 20px 50px rgba(0,0,0,0.3);
         }
         
-        .modal-body { 
-            display: flex; 
-            flex-direction: row; 
-            height: 100%; 
-            overflow: hidden; 
-        }
+        .modal-img-container { flex: 1.5; background-color: #111; display: flex; align-items: center; justify-content: center; overflow: hidden; min-height: 300px; }
+        .modal-img { width: 100%; height: 100%; object-fit: contain; display: block; }
+        
+        .modal-details { flex: 1; padding: 40px; overflow-y: auto; background: var(--white); }
+        .modal-title { font-size: 1.8rem; margin-bottom: 5px; color: var(--primary-dark); }
+        .modal-description { margin: 20px 0; line-height: 1.6; font-weight: 300; }
         
         .modal-close {
-            background: none; 
-            border: none; 
-            font-size: 2.5rem; 
-            cursor: pointer; 
-            color: var(--dark-gray);
-            transition: color 0.3s; 
-            position: absolute; 
-            top: 10px; 
-            right: 15px;
-            z-index: 10; 
-            background: rgba(255,255,255,0.9); 
-            width: 45px; 
-            height: 45px;
-            border-radius: 50%; 
-            display: flex; 
-            align-items: center; 
-            justify-content: center;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
-            line-height: 1;
-        }
-        
-        .modal-close:hover { 
-            color: var(--accent); 
-        }
-
-        /* --- Image Detail Modal --- */
-        #image-modal .modal-content { 
-            max-width: 1100px; 
-        }
-        
-        .modal-img-container { 
-            flex: 3; 
-            background-color: #111; 
-            display: flex; 
-            align-items: center; 
-            justify-content: center; 
-            overflow: hidden; 
-        }
-        
-        .modal-img { 
-            width: 100%; 
-            height: 100%; 
-            object-fit: contain; 
-            display: block; 
-        }
-        
-        .modal-details { 
-            flex: 2; 
-            padding: 40px; 
-            overflow-y: auto; 
-        }
-        
-        .modal-header { 
-            display: flex; 
-            justify-content: space-between; 
-            align-items: flex-start; 
-            margin-bottom: 20px; 
-        }
-        
-        .modal-title { 
-            font-size: 1.8rem; 
-            margin-bottom: 5px; 
-            color: var(--primary-dark);
-        }
-        
-        .modal-description { 
-            margin-bottom: 25px; 
-            line-height: 1.6; 
-            font-weight: 300; 
+            background: white; border: none; font-size: 2rem; cursor: pointer; color: var(--dark-gray);
+            position: absolute; top: 15px; right: 15px; z-index: 10; width: 40px; height: 40px;
+            border-radius: 50%; display: flex; align-items: center; justify-content: center;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2); line-height: 1;
         }
         
         .modal-nav {
-            position: absolute; 
-            top: 50%; 
-            transform: translateY(-50%); 
-            background: rgba(255, 255, 255, 0.9);
-            border: none; 
-            border-radius: 50%; 
-            width: 50px; 
-            height: 50px; 
-            font-size: 24px; 
-            cursor: pointer;
-            color: var(--charcoal); 
-            display: flex; 
-            align-items: center; 
-            justify-content: center;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.2); 
-            transition: all 0.3s; 
-            z-index: 10;
+            position: absolute; top: 50%; transform: translateY(-50%); 
+            background: rgba(255, 255, 255, 0.9); border: none; border-radius: 50%; 
+            width: 45px; height: 45px; font-size: 20px; cursor: pointer; color: var(--charcoal); 
+            display: flex; align-items: center; justify-content: center;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.2); transition: all 0.3s; z-index: 10;
         }
         
-        .modal-nav:hover { 
-            background: var(--white); 
-            transform: translateY(-50%) scale(1.1); 
-            color: var(--primary);
-        }
-        
-        #prev-btn { left: 20px; }
-        #next-btn { right: 20px; }
+        .modal-nav:hover { background: var(--white); transform: translateY(-50%) scale(1.1); color: var(--primary); }
+        #prev-btn { left: 15px; }
+        #next-btn { right: 15px; }
 
-        /* --- Responsive Design --- */
-        @media (max-width: 1200px) {
-            .hero h1 { font-size: 3.2rem; }
-            .about-content { gap: 40px; }
-        }
+        /* --- RESPONSIVE MEDIA QUERIES --- */
         
+        /* Large Tablets & Small Laptops */
         @media (max-width: 992px) {
             .gallery-grid { column-count: 2; }
-            #image-modal .modal-body { flex-direction: column; }
-            #image-modal .modal-content { max-height: 85vh; }
-            .modal-img-container { height: 50vh; }
-            .about-content { flex-direction: column; text-align: center; }
-            .about-image { margin: 0 auto 30px; }
-            .hero { height: 75vh; min-height: 500px; }
+            .about-content { flex-direction: column; text-align: center; gap: 40px;}
+            .about-image { margin: 0 auto; }
+            .modal-content { flex-direction: column; overflow-y: auto; }
+            .modal-img-container { flex: none; height: 50vh; }
+            .modal-details { flex: none; overflow-y: visible; }
         }
         
+        /* Tablets & Mobile Navigation */
         @media (max-width: 768px) {
-            nav ul { gap: 15px; }
-            .hero h1 { font-size: 2.8rem; }
-            .hero p { font-size: 1.1rem; }
-            .section-title { font-size: 2rem; }
+            .container { padding: 40px 5%; }
+            section { padding: 60px 0; }
+            
+            /* Enable Hamburger Menu */
+            .menu-toggle { display: flex; }
+            
+            nav ul {
+                position: absolute;
+                top: 100%;
+                left: 0;
+                width: 100%;
+                background: white;
+                flex-direction: column;
+                align-items: center;
+                padding: 0;
+                max-height: 0;
+                overflow: hidden;
+                box-shadow: 0 10px 15px rgba(0,0,0,0.05);
+            }
+            
+            nav ul.active {
+                padding: 20px 0;
+                max-height: 300px; /* arbitrary large number to allow animation */
+            }
+
+            nav a { font-size: 1.1rem; padding: 10px 0; display: inline-block;}
+            
+            /* Hamburger Animation */
+            .menu-toggle.active .bar:nth-child(1) { transform: translateY(9px) rotate(45deg); }
+            .menu-toggle.active .bar:nth-child(2) { opacity: 0; }
+            .menu-toggle.active .bar:nth-child(3) { transform: translateY(-9px) rotate(-45deg); }
+            
             .modal-details { padding: 25px; }
         }
         
+        /* Small Mobile Devices */
         @media (max-width: 576px) {
             .gallery-grid { column-count: 1; }
-            .modal-nav { width: 40px; height: 40px; font-size: 20px; }
-            .hero h1 { font-size: 2.2rem; }
-            .hero { height: 60vh; min-height: 400px; }
-            nav ul { flex-wrap: wrap; justify-content: center; gap: 12px; }
-            .footer-socials { flex-wrap: wrap; }
+            .modal-nav { width: 35px; height: 35px; font-size: 16px; }
+            #prev-btn { left: 10px; }
+            #next-btn { right: 10px; }
+            .contact-links { flex-direction: column; align-items: center; gap: 15px;}
         }
     </style>
 </head>
@@ -646,8 +510,15 @@
             </svg>
             Sunny's Gallery
         </a>
+        
+        <div class="menu-toggle" id="mobile-menu">
+            <span class="bar"></span>
+            <span class="bar"></span>
+            <span class="bar"></span>
+        </div>
+
         <nav>
-            <ul>
+            <ul id="nav-links">
                 <li><a href="#gallery">Gallery</a></li>
                 <li><a href="#about">About</a></li>
                 <li><a href="#contact">Contact</a></li>
@@ -685,12 +556,11 @@
     <section id="about" class="container about">
         <h2 class="section-title">About Me</h2>
         <div class="about-content">
-            <img src="profile.png" alt="Sunny's Profile Picture" class="about-image" onerror="this.src='data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' width=\'400\' height=\'400\'><rect width=\'400\' height=\'400\' fill=\'%23e9ecef\'/><text x=\'50%\' y=\'50%\' dominant-baseline=\'middle\' text-anchor=\'middle\' font-family=\'sans-serif\' font-size=\'20px\' fill=\'%236c757d\'>Profile Image Placeholder</text></svg>'">
+            <img src="profile.png" alt="Sunny's Profile" class="about-image" onerror="this.src='data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' width=\'400\' height=\'400\'><rect width=\'400\' height=\'400\' fill=\'%23e9ecef\'/><text x=\'50%\' y=\'50%\' dominant-baseline=\'middle\' text-anchor=\'middle\' font-family=\'sans-serif\' font-size=\'20px\' fill=\'%236c757d\'>Profile Image Placeholder</text></svg>'">
             <div class="about-text">
                 <h3>Hello, I'm Sunny</h3>
                 <p>I'm a passionate digital artist and graphic designer with a love for creating visually compelling narratives. My journey in the arts began over a decade ago, and since then I've developed a distinctive style that blends traditional techniques with modern digital tools.</p>
                 <p>This gallery represents my creative evolution, featuring works that range from vibrant digital paintings to minimalist vector art. Each piece is a reflection of my exploration into the intersection of technology and artistic expression.</p>
-                <p>When I'm not creating art, you can find me teaching workshops, collaborating with other artists, or exploring new mediums to expand my creative horizons.</p>
                 <a href="#gallery" class="portfolio-link">View Full Portfolio</a>
             </div>
         </div>
@@ -699,18 +569,14 @@
     <section id="contact" class="container" style="padding-bottom: 80px;">
         <h2 class="section-title">Get In Touch</h2>
         <div style="max-width: 800px; margin: 0 auto; text-align: center;">
-            <p style="font-size: 1.1rem; margin-bottom: 30px;">For inquiries, collaborations, or just to say hello, feel free to reach out via email or phone.</p>
-            <div style="display: flex; justify-content: center; gap: 30px; flex-wrap: wrap;">
+            <p style="font-size: clamp(1rem, 2vw, 1.1rem); margin-bottom: 30px;">For inquiries, collaborations, or just to say hello, feel free to reach out via email or phone.</p>
+            <div class="contact-links" style="display: flex; justify-content: center; gap: 30px; flex-wrap: wrap;">
                 <a href="mailto:hello@example.com" class="icon-box" style="display: inline-flex; align-items: center; color: var(--primary); text-decoration: none; font-weight: 500;">
-                    <svg viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M48 64C21.5 64 0 85.5 0 112c0 15.1 7.1 29.3 19.2 38.4L236.8 313.6c11.4 8.5 27 8.5 38.4 0L492.8 150.4c12.1-9.1 19.2-23.3 19.2-38.4c0-26.5-21.5-48-48-48H48zM0 176V384c0 35.3 28.7 64 64 64H448c35.3 0 64-28.7 64-64V176L294.4 339.2c-22.8 17.1-54 17.1-76.8 0L0 176z"/>
-                    </svg>
+                    <svg viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg"><path d="M48 64C21.5 64 0 85.5 0 112c0 15.1 7.1 29.3 19.2 38.4L236.8 313.6c11.4 8.5 27 8.5 38.4 0L492.8 150.4c12.1-9.1 19.2-23.3 19.2-38.4c0-26.5-21.5-48-48-48H48zM0 176V384c0 35.3 28.7 64 64 64H448c35.3 0 64-28.7 64-64V176L294.4 339.2c-22.8 17.1-54 17.1-76.8 0L0 176z"/></svg>
                     hello@example.com
                 </a>
                 <a href="tel:+1234567890" class="icon-box" style="display: inline-flex; align-items: center; color: var(--primary); text-decoration: none; font-weight: 500;">
-                    <svg viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M164.9 24.6c-7.7-18.6-28-28.5-47.4-23.2l-88 24C12.1 30.2 0 46 0 64C0 311.4 200.6 512 448 512c18 0 33.8-12.1 38.6-29.5l24-88c5.3-19.4-4.6-39.7-23.2-47.4l-96-40c-16.3-6.8-35.2-2.1-46.3 11.6L304.7 368C234.3 334.7 177.3 277.7 144 207.3L193.3 167c13.7-11.2 18.4-30 11.6-46.3l-40-96z"/>
-                    </svg>
+                    <svg viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg"><path d="M164.9 24.6c-7.7-18.6-28-28.5-47.4-23.2l-88 24C12.1 30.2 0 46 0 64C0 311.4 200.6 512 448 512c18 0 33.8-12.1 38.6-29.5l24-88c5.3-19.4-4.6-39.7-23.2-47.4l-96-40c-16.3-6.8-35.2-2.1-46.3 11.6L304.7 368C234.3 334.7 177.3 277.7 144 207.3L193.3 167c13.7-11.2 18.4-30 11.6-46.3l-40-96z"/></svg>
                     +1 (234) 567-890
                 </a>
             </div>
@@ -731,24 +597,20 @@
     
     <div class="modal" id="image-modal">
         <div class="modal-content">
-            <div class="modal-body">
-                <div class="modal-img-container"><img src="" alt="" class="modal-img" id="modal-img"></div>
-                <div class="modal-details">
-                    <div class="modal-header">
-                        <div>
-                            <h3 class="modal-title" id="modal-title"></h3>
-                            <p id="modal-artist" style="color: var(--dark-gray);"></p>
-                        </div>
-                    </div>
-                    <p class="modal-description" id="modal-description"></p>
-                    <div>
-                        <h3 style="font-weight: 600;">Details</h3>
-                        <ul style="list-style-position: inside; margin-top: 10px; line-height: 1.8; font-weight: 300;">
-                            <li id="modal-medium"></li>
-                            <li id="modal-dimensions"></li>
-                            <li id="modal-year"></li>
-                        </ul>
-                    </div>
+            <div class="modal-img-container">
+                <img src="" alt="" class="modal-img" id="modal-img">
+            </div>
+            <div class="modal-details">
+                <h3 class="modal-title" id="modal-title"></h3>
+                <p id="modal-artist" style="color: var(--dark-gray);"></p>
+                <p class="modal-description" id="modal-description"></p>
+                <div>
+                    <h3 style="font-weight: 600; font-size: 1.2rem;">Details</h3>
+                    <ul style="list-style-position: inside; margin-top: 10px; line-height: 1.8; font-weight: 300;">
+                        <li id="modal-medium"></li>
+                        <li id="modal-dimensions"></li>
+                        <li id="modal-year"></li>
+                    </ul>
                 </div>
             </div>
             <button class="modal-close" id="image-modal-close">&times;</button>
@@ -759,15 +621,48 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', () => {
-            // Set current year in footer
+            // Set current year
             document.getElementById('current-year').textContent = new Date().getFullYear();
 
-            // Initialize DOM elements
+            // Mobile Menu Toggle Logic
+            const mobileMenu = document.getElementById('mobile-menu');
+            const navLinks = document.getElementById('nav-links');
+
+            mobileMenu.addEventListener('click', () => {
+                mobileMenu.classList.toggle('active');
+                navLinks.classList.toggle('active');
+            });
+
+            // Close mobile menu when a link is clicked
+            document.querySelectorAll('nav ul li a').forEach(link => {
+                link.addEventListener('click', () => {
+                    mobileMenu.classList.remove('active');
+                    navLinks.classList.remove('active');
+                });
+            });
+
+            // Smooth scrolling for navigation
+            document.querySelectorAll('nav a, .hero-btn, .portfolio-link').forEach(anchor => {
+                anchor.addEventListener('click', function(e) {
+                    const targetId = this.getAttribute('href');
+                    if(targetId.startsWith('#')) {
+                        e.preventDefault();
+                        const targetElement = document.querySelector(targetId);
+                        if (targetElement) {
+                            window.scrollTo({
+                                top: targetElement.offsetTop - 70, // Offset for sticky header
+                                behavior: 'smooth'
+                            });
+                        }
+                    }
+                });
+            });
+
+            // Gallery and Modal Setup
             const galleryGrid = document.getElementById('gallery-grid');
             const imageModal = document.getElementById('image-modal');
             const filterButtons = document.querySelectorAll('.filter-btn');
             
-            // Image Modal Elements
             const modalImg = document.getElementById('modal-img');
             const modalTitle = document.getElementById('modal-title');
             const modalArtist = document.getElementById('modal-artist');
@@ -776,205 +671,86 @@
             const modalDimensions = document.getElementById('modal-dimensions');
             const modalYear = document.getElementById('modal-year');
             const imageModalClose = document.getElementById('image-modal-close');
-            const prevBtn = document.getElementById('prev-btn');
-            const nextBtn = document.getElementById('next-btn');
-
-            // Artwork Data (Using relative GitHub paths)
+            
             const galleryData = [
-                {
-                    "id": 1,
-                    "src": "42993-3840x2160-desktop-4k-arcane-league-of-legends-wallpaper-photo (1) (1).jpg",
-                    "title": "Arcane Cityscape",
-                    "artist": "Sunny",
-                    "description": "A dramatic 4K wallpaper featuring the neon-lit streets of Piltover from Arcane: League of Legends.",
-                    "medium": "Digital Painting (Photoshop)",
-                    "dimensions": "3840 x 2160 px",
-                    "year": "2023",
-                    "category": "Digital Art"
-                },
-                {
-                    "id": 2,
-                    "src": "42993-3840x2160-desktop-4k-arcane-league-of-legends-wallpaper-photo (1).jpg",
-                    "title": "Zaun Underworld",
-                    "artist": "Sunny",
-                    "description": "Moody atmospheric rendering of the underground city Zaun from Arcane series.",
-                    "medium": "Digital Painting (Procreate)",
-                    "dimensions": "3840 x 2160 px",
-                    "year": "2023",
-                    "category": "Digital Art"
-                },
-                {
-                    "id": 3,
-                    "src": "Plant dragon by AlviaAlcedo on DeviantArt (1).jpeg",
-                    "title": "Floral Dragon",
-                    "artist": "Sunny (Inspired by AlviaAlcedo)",
-                    "description": "Fantasy creature design blending botanical elements with draconic features.",
-                    "medium": "Digital Illustration (Procreate)",
-                    "dimensions": "3000 x 2000 px",
-                    "year": "2022",
-                    "category": "Illustration"
-                },
-                {
-                    "id": 4,
-                    "src": "Plant dragon by AlviaAlcedo on DeviantArt.jpeg",
-                    "title": "Nature's Guardian",
-                    "artist": "Sunny (Inspired by AlviaAlcedo)",
-                    "description": "Mythical dragon creature composed of living plants and flowers.",
-                    "medium": "Digital Painting (Photoshop)",
-                    "dimensions": "3500 x 2500 px",
-                    "year": "2022",
-                    "category": "Illustration"
-                },
-                {
-                    "id": 5,
-                    "src": "85112-1440x2560-mobile-hd-arcane-league-of-legends-wallpaper-photo.jpg",
-                    "title": "Arcane Character Portrait",
-                    "artist": "Sunny",
-                    "description": "Stylized mobile wallpaper featuring key characters from Arcane series.",
-                    "medium": "Digital Art (Illustrator)",
-                    "dimensions": "1440 x 2560 px",
-                    "year": "2023",
-                    "category": "Digital Art"
-                },
-                {
-                    "id": 6,
-                    "src": "Purple Minimalist Happy Birthday Flyer (A4).jpg",
-                    "title": "Birthday Celebration Flyer",
-                    "artist": "Sunny",
-                    "description": "Elegant minimalist birthday flyer design with modern typography.",
-                    "medium": "Graphic Design (Illustrator, Photoshop)",
-                    "dimensions": "A4 (2480 x 3508 px)",
-                    "year": "2024",
-                    "category": "Posters"
-                }
+                { id: 1, src: "42993-3840x2160-desktop-4k-arcane-league-of-legends-wallpaper-photo (1) (1).jpg", title: "Arcane Cityscape", artist: "Sunny", description: "A dramatic 4K wallpaper featuring the neon-lit streets of Piltover from Arcane: League of Legends.", medium: "Digital Painting (Photoshop)", dimensions: "3840 x 2160 px", year: "2023", category: "Digital Art" },
+                { id: 2, src: "42993-3840x2160-desktop-4k-arcane-league-of-legends-wallpaper-photo (1).jpg", title: "Zaun Underworld", artist: "Sunny", description: "Moody atmospheric rendering of the underground city Zaun from Arcane series.", medium: "Digital Painting (Procreate)", dimensions: "3840 x 2160 px", year: "2023", category: "Digital Art" },
+                { id: 3, src: "Plant dragon by AlviaAlcedo on DeviantArt (1).jpeg", title: "Floral Dragon", artist: "Sunny", description: "Fantasy creature design blending botanical elements with draconic features.", medium: "Digital Illustration", dimensions: "3000 x 2000 px", year: "2022", category: "Illustration" },
+                { id: 4, src: "Plant dragon by AlviaAlcedo on DeviantArt.jpeg", title: "Nature's Guardian", artist: "Sunny", description: "Mythical dragon creature composed of living plants and flowers.", medium: "Digital Painting", dimensions: "3500 x 2500 px", year: "2022", category: "Illustration" },
+                { id: 5, src: "85112-1440x2560-mobile-hd-arcane-league-of-legends-wallpaper-photo.jpg", title: "Arcane Portrait", artist: "Sunny", description: "Stylized mobile wallpaper featuring key characters.", medium: "Digital Art", dimensions: "1440 x 2560 px", year: "2023", category: "Digital Art" },
+                { id: 6, src: "Purple Minimalist Happy Birthday Flyer (A4).jpg", title: "Birthday Flyer", artist: "Sunny", description: "Elegant minimalist birthday flyer design.", medium: "Graphic Design", dimensions: "A4", year: "2024", category: "Posters" }
             ];
 
             let currentFilteredData = [...galleryData];
             let currentIndex = 0;
 
-            // Render Gallery Function
             function renderGallery(items) {
-                if (!galleryGrid) return;
-                
                 galleryGrid.innerHTML = '';
-                
                 if (items.length === 0) {
-                    galleryGrid.innerHTML = 
-                        '<p style="text-align: center; color: var(--dark-gray); padding: 40px;">No artworks found in this category.</p>';
+                    galleryGrid.innerHTML = '<p style="text-align: center; grid-column: 1/-1;">No artworks found.</p>';
                     return;
                 }
-                
                 items.forEach(item => {
-                    const galleryItem = document.createElement('div');
-                    galleryItem.className = 'gallery-item';
-                    galleryItem.dataset.id = item.id;
-                    galleryItem.innerHTML = `
+                    const el = document.createElement('div');
+                    el.className = 'gallery-item';
+                    el.dataset.id = item.id;
+                    el.innerHTML = `
                         <img src="${item.src}" alt="${item.title}" class="gallery-img" loading="lazy">
                         <div class="gallery-overlay">
-                            <div>
-                                <div class="gallery-title">${item.title}</div>
-                                <div class="gallery-category">${item.artist}</div>
-                            </div>
-                        </div>
-                    `;
-                    galleryGrid.appendChild(galleryItem);
+                            <div><div class="gallery-title">${item.title}</div><div class="gallery-category">${item.category}</div></div>
+                        </div>`;
+                    galleryGrid.appendChild(el);
                 });
             }
 
-            // Update Modal Content
-            function updateModalContent(index) {
-                const artwork = currentFilteredData[index];
-                if (artwork) {
-                    modalImg.src = artwork.src;
-                    modalImg.alt = artwork.title;
-                    modalTitle.textContent = artwork.title;
-                    modalArtist.textContent = `By ${artwork.artist}`;
-                    modalDescription.textContent = artwork.description;
-                    modalMedium.textContent = `Medium: ${artwork.medium || 'N/A'}`;
-                    modalDimensions.textContent = `Dimensions: ${artwork.dimensions || 'N/A'}`;
-                    modalYear.textContent = `Year: ${artwork.year || 'N/A'}`;
+            function updateModal(index) {
+                const art = currentFilteredData[index];
+                if (art) {
+                    modalImg.src = art.src;
+                    modalTitle.textContent = art.title;
+                    modalArtist.textContent = `By ${art.artist}`;
+                    modalDescription.textContent = art.description;
+                    modalMedium.textContent = `Medium: ${art.medium}`;
+                    modalDimensions.textContent = `Size: ${art.dimensions}`;
+                    modalYear.textContent = `Year: ${art.year}`;
                 }
             }
 
-            // Modal Logic
-            function openModal(modalElement) { 
-                modalElement.classList.add('active'); 
-                document.body.style.overflow = 'hidden'; 
-            }
-            
-            function closeModal(modalElement) { 
-                modalElement.classList.remove('active'); 
-                document.body.style.overflow = 'auto'; 
+            function closeModal() {
+                imageModal.classList.remove('active');
+                document.body.style.overflow = 'auto';
             }
 
-            // Smooth scrolling for navigation links
-            document.querySelectorAll('nav a').forEach(anchor => {
-                anchor.addEventListener('click', function(e) {
-                    e.preventDefault();
-                    const targetId = this.getAttribute('href');
-                    const targetElement = document.querySelector(targetId);
-                    
-                    if (targetElement) {
-                        window.scrollTo({
-                            top: targetElement.offsetTop - 80,
-                            behavior: 'smooth'
-                        });
-                    }
-                });
-            });
-
-            // Event Listeners
             galleryGrid.addEventListener('click', (e) => {
                 const item = e.target.closest('.gallery-item');
                 if (item) {
-                    currentIndex = currentFilteredData.findIndex(art => art.id == item.dataset.id);
-                    if (currentIndex !== -1) {
-                        updateModalContent(currentIndex);
-                        openModal(imageModal);
-                    }
+                    currentIndex = currentFilteredData.findIndex(a => a.id == item.dataset.id);
+                    updateModal(currentIndex);
+                    imageModal.classList.add('active');
+                    document.body.style.overflow = 'hidden';
                 }
             });
 
-            imageModalClose.addEventListener('click', () => closeModal(imageModal));
-            imageModal.addEventListener('click', (e) => e.target === imageModal && closeModal(imageModal));
+            imageModalClose.addEventListener('click', closeModal);
+            imageModal.addEventListener('click', (e) => { if(e.target === imageModal) closeModal(); });
             
-            window.addEventListener('keydown', (e) => {
-                if (imageModal.classList.contains('active')) {
-                    if (e.key === 'Escape') {
-                        closeModal(imageModal);
-                    } else if (e.key === 'ArrowRight') {
-                        currentIndex = (currentIndex + 1) % currentFilteredData.length; 
-                        updateModalContent(currentIndex);
-                    } else if (e.key === 'ArrowLeft') {
-                        currentIndex = (currentIndex - 1 + currentFilteredData.length) % currentFilteredData.length; 
-                        updateModalContent(currentIndex);
-                    }
-                }
+            document.getElementById('next-btn').addEventListener('click', () => { 
+                currentIndex = (currentIndex + 1) % currentFilteredData.length; updateModal(currentIndex); 
+            });
+            document.getElementById('prev-btn').addEventListener('click', () => { 
+                currentIndex = (currentIndex - 1 + currentFilteredData.length) % currentFilteredData.length; updateModal(currentIndex); 
             });
 
-            // Filter Logic
-            filterButtons.forEach(button => {
-                button.addEventListener('click', () => {
-                    filterButtons.forEach(btn => btn.classList.remove('active'));
-                    button.classList.add('active');
-                    const filter = button.dataset.filter;
-                    currentFilteredData = (filter === 'all') ? [...galleryData] : galleryData.filter(item => item.category === filter);
+            filterButtons.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    filterButtons.forEach(b => b.classList.remove('active'));
+                    btn.classList.add('active');
+                    const f = btn.dataset.filter;
+                    currentFilteredData = f === 'all' ? [...galleryData] : galleryData.filter(i => i.category === f);
                     renderGallery(currentFilteredData);
                 });
             });
 
-            // Modal Navigation Logic
-            nextBtn.addEventListener('click', () => { 
-                currentIndex = (currentIndex + 1) % currentFilteredData.length; 
-                updateModalContent(currentIndex); 
-            });
-            
-            prevBtn.addEventListener('click', () => { 
-                currentIndex = (currentIndex - 1 + currentFilteredData.length) % currentFilteredData.length; 
-                updateModalContent(currentIndex); 
-            });
-
-            // Initial render
             renderGallery(galleryData);
         });
     </script>
