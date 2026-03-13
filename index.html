@@ -36,7 +36,7 @@
             background-color: var(--white); 
             color: var(--charcoal); 
             line-height: 1.6; 
-            overflow-x: hidden; /* Prevents horizontal scroll on mobile */
+            overflow-x: hidden; 
         }
         .container { padding: 50px 5%; max-width: 1400px; margin: 0 auto; }
         section { padding: 80px 0; }
@@ -63,7 +63,7 @@
             display: flex;
             align-items: center;
             gap: 10px;
-            z-index: 101; /* Keeps logo above mobile menu */
+            z-index: 101; 
         }
         
         .logo svg {
@@ -104,7 +104,6 @@
 
         nav a:hover::after { width: 100%; }
 
-        /* Hamburger Menu Setup */
         .menu-toggle {
             display: none;
             flex-direction: column;
@@ -172,7 +171,6 @@
         }
         
         .hero h1 { 
-            /* Fluid Typography: Scales smoothly between 2.2rem and 3.8rem based on screen width */
             font-size: clamp(2.2rem, 5vw + 1rem, 3.8rem); 
             font-weight: 800; 
             margin-bottom: 1.5rem;
@@ -437,8 +435,6 @@
         #next-btn { right: 15px; }
 
         /* --- RESPONSIVE MEDIA QUERIES --- */
-        
-        /* Large Tablets & Small Laptops */
         @media (max-width: 992px) {
             .gallery-grid { column-count: 2; }
             .about-content { flex-direction: column; text-align: center; gap: 40px;}
@@ -448,44 +444,23 @@
             .modal-details { flex: none; overflow-y: visible; }
         }
         
-        /* Tablets & Mobile Navigation */
         @media (max-width: 768px) {
             .container { padding: 40px 5%; }
             section { padding: 60px 0; }
-            
-            /* Enable Hamburger Menu */
             .menu-toggle { display: flex; }
-            
             nav ul {
-                position: absolute;
-                top: 100%;
-                left: 0;
-                width: 100%;
-                background: white;
-                flex-direction: column;
-                align-items: center;
-                padding: 0;
-                max-height: 0;
-                overflow: hidden;
-                box-shadow: 0 10px 15px rgba(0,0,0,0.05);
+                position: absolute; top: 100%; left: 0; width: 100%; background: white;
+                flex-direction: column; align-items: center; padding: 0; max-height: 0;
+                overflow: hidden; box-shadow: 0 10px 15px rgba(0,0,0,0.05);
             }
-            
-            nav ul.active {
-                padding: 20px 0;
-                max-height: 300px; /* arbitrary large number to allow animation */
-            }
-
+            nav ul.active { padding: 20px 0; max-height: 300px; }
             nav a { font-size: 1.1rem; padding: 10px 0; display: inline-block;}
-            
-            /* Hamburger Animation */
             .menu-toggle.active .bar:nth-child(1) { transform: translateY(9px) rotate(45deg); }
             .menu-toggle.active .bar:nth-child(2) { opacity: 0; }
             .menu-toggle.active .bar:nth-child(3) { transform: translateY(-9px) rotate(-45deg); }
-            
             .modal-details { padding: 25px; }
         }
         
-        /* Small Mobile Devices */
         @media (max-width: 576px) {
             .gallery-grid { column-count: 1; }
             .modal-nav { width: 35px; height: 35px; font-size: 16px; }
@@ -542,9 +517,9 @@
         
         <div class="category-filters" id="filters">
             <button class="filter-btn active" data-filter="all">All</button>
-            <button class="filter-btn" data-filter="Digital Art">Digital Art</button>
-            <button class="filter-btn" data-filter="Illustration">Illustration</button>
             <button class="filter-btn" data-filter="Posters">Posters</button>
+            <button class="filter-btn" data-filter="Social Media">Social Media</button>
+            <button class="filter-btn" data-filter="Digital Art">Digital Art</button>
         </div>
         
         <div class="gallery">
@@ -621,10 +596,8 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', () => {
-            // Set current year
             document.getElementById('current-year').textContent = new Date().getFullYear();
 
-            // Mobile Menu Toggle Logic
             const mobileMenu = document.getElementById('mobile-menu');
             const navLinks = document.getElementById('nav-links');
 
@@ -633,7 +606,6 @@
                 navLinks.classList.toggle('active');
             });
 
-            // Close mobile menu when a link is clicked
             document.querySelectorAll('nav ul li a').forEach(link => {
                 link.addEventListener('click', () => {
                     mobileMenu.classList.remove('active');
@@ -641,7 +613,6 @@
                 });
             });
 
-            // Smooth scrolling for navigation
             document.querySelectorAll('nav a, .hero-btn, .portfolio-link').forEach(anchor => {
                 anchor.addEventListener('click', function(e) {
                     const targetId = this.getAttribute('href');
@@ -650,7 +621,7 @@
                         const targetElement = document.querySelector(targetId);
                         if (targetElement) {
                             window.scrollTo({
-                                top: targetElement.offsetTop - 70, // Offset for sticky header
+                                top: targetElement.offsetTop - 70, 
                                 behavior: 'smooth'
                             });
                         }
@@ -658,7 +629,6 @@
                 });
             });
 
-            // Gallery and Modal Setup
             const galleryGrid = document.getElementById('gallery-grid');
             const imageModal = document.getElementById('image-modal');
             const filterButtons = document.querySelectorAll('.filter-btn');
@@ -672,13 +642,18 @@
             const modalYear = document.getElementById('modal-year');
             const imageModalClose = document.getElementById('image-modal-close');
             
+            // --- UPDATED GALLERY DATA ---
             const galleryData = [
-                { id: 1, src: "42993-3840x2160-desktop-4k-arcane-league-of-legends-wallpaper-photo (1) (1).jpg", title: "Arcane Cityscape", artist: "Sunny", description: "A dramatic 4K wallpaper featuring the neon-lit streets of Piltover from Arcane: League of Legends.", medium: "Digital Painting (Photoshop)", dimensions: "3840 x 2160 px", year: "2023", category: "Digital Art" },
-                { id: 2, src: "42993-3840x2160-desktop-4k-arcane-league-of-legends-wallpaper-photo (1).jpg", title: "Zaun Underworld", artist: "Sunny", description: "Moody atmospheric rendering of the underground city Zaun from Arcane series.", medium: "Digital Painting (Procreate)", dimensions: "3840 x 2160 px", year: "2023", category: "Digital Art" },
-                { id: 3, src: "Plant dragon by AlviaAlcedo on DeviantArt (1).jpeg", title: "Floral Dragon", artist: "Sunny", description: "Fantasy creature design blending botanical elements with draconic features.", medium: "Digital Illustration", dimensions: "3000 x 2000 px", year: "2022", category: "Illustration" },
-                { id: 4, src: "Plant dragon by AlviaAlcedo on DeviantArt.jpeg", title: "Nature's Guardian", artist: "Sunny", description: "Mythical dragon creature composed of living plants and flowers.", medium: "Digital Painting", dimensions: "3500 x 2500 px", year: "2022", category: "Illustration" },
-                { id: 5, src: "85112-1440x2560-mobile-hd-arcane-league-of-legends-wallpaper-photo.jpg", title: "Arcane Portrait", artist: "Sunny", description: "Stylized mobile wallpaper featuring key characters.", medium: "Digital Art", dimensions: "1440 x 2560 px", year: "2023", category: "Digital Art" },
-                { id: 6, src: "Purple Minimalist Happy Birthday Flyer (A4).jpg", title: "Birthday Flyer", artist: "Sunny", description: "Elegant minimalist birthday flyer design.", medium: "Graphic Design", dimensions: "A4", year: "2024", category: "Posters" }
+                { id: 1, src: "post_1.png", title: "Nike Air Promotion", artist: "Sunny", description: "A bold, modern poster design for the Nike Air Jordan sale featuring layered typography and grunge textures.", medium: "Graphic Design (Photoshop)", dimensions: "High Resolution", year: "2024", category: "Posters" },
+                { id: 2, src: "post_2.png", title: "Travel The World", artist: "Sunny", description: "An engaging travel agency advertisement flyer with neat masking techniques and clean informational hierarchy.", medium: "Graphic Design (Illustrator)", dimensions: "High Resolution", year: "2024", category: "Posters" },
+                { id: 3, src: "post_3.jpg", title: "Virat Kohli Tribute", artist: "Sunny", description: "A dynamic sports collage and tribute poster dedicated to cricketer Virat Kohli.", medium: "Photo Manipulation", dimensions: "High Resolution", year: "2023", category: "Digital Art" },
+                { id: 4, src: "post_4.jpg", title: "Birthday Post Template", artist: "Sunny", description: "A trendy Instagram-style birthday post utilizing transparent frames and background typography.", medium: "Social Media Design", dimensions: "1080 x 1350 px", year: "2024", category: "Social Media" },
+                { id: 5, src: "post_5.jpg", title: "KP Stores RC Car", artist: "Sunny", description: "A sleek, dark-themed product advertisement for an e-commerce store highlighting the product against a split background.", medium: "Digital Marketing Design", dimensions: "1080 x 1080 px", year: "2024", category: "Social Media" },
+                { id: 6, src: "post_6.png", title: "Delicious Food Service", artist: "Sunny", description: "A vibrant, eye-catching flyer design for a food service business focusing on bold colors to stimulate appetite.", medium: "Graphic Design", dimensions: "Print Ready", year: "2023", category: "Posters" },
+                { id: 7, src: "post_7.png", title: "Time Management Seminar", artist: "Sunny", description: "A professional event poster featuring distressed paper textures and strong typographic emphasis.", medium: "Graphic Design", dimensions: "Print Ready", year: "2023", category: "Posters" },
+                { id: 8, src: "post_8.jpg", title: "Mount Fuji Typography", artist: "Sunny", description: "A beautiful landscape edit combining scenic photography with interlaced typography techniques.", medium: "Digital Art & Typography", dimensions: "High Resolution", year: "2024", category: "Digital Art" },
+                { id: 9, src: "post_9.jpg", title: "Summer Serenity", artist: "Sunny", description: "A minimalist nature piece featuring a mountain range and creative text masking.", medium: "Digital Art & Typography", dimensions: "High Resolution", year: "2024", category: "Digital Art" },
+                { id: 10, src: "post_10.jpg", title: "Embrace & Embark", artist: "Sunny", description: "An anime-inspired landscape with stylized, airy typography designed to evoke a sense of adventure.", medium: "Digital Illustration", dimensions: "High Resolution", year: "2024", category: "Digital Art" }
             ];
 
             let currentFilteredData = [...galleryData];
@@ -711,7 +686,7 @@
                     modalArtist.textContent = `By ${art.artist}`;
                     modalDescription.textContent = art.description;
                     modalMedium.textContent = `Medium: ${art.medium}`;
-                    modalDimensions.textContent = `Size: ${art.dimensions}`;
+                    modalDimensions.textContent = `Format: ${art.dimensions}`;
                     modalYear.textContent = `Year: ${art.year}`;
                 }
             }
