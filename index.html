@@ -19,7 +19,6 @@
             --dark-gray: #6c757d;
             --charcoal: #212529;
             --shadow-color: rgba(0, 0, 0, 0.1);
-            --section-bg: #f8f9fa;
             --gradient-primary: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
         }
 
@@ -66,11 +65,7 @@
             z-index: 101; 
         }
         
-        .logo svg {
-            width: 24px;
-            height: 24px;
-            fill: url(#logo-gradient);
-        }
+        .logo svg { width: 24px; height: 24px; fill: url(#logo-gradient); }
 
         nav ul {
             display: flex;
@@ -92,50 +87,38 @@
         nav a:hover { color: var(--primary); }
 
         nav a::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 0;
-            height: 2px;
-            background: var(--gradient-primary);
-            transition: width 0.3s;
+            content: ''; position: absolute; bottom: 0; left: 0; width: 0; height: 2px;
+            background: var(--gradient-primary); transition: width 0.3s;
         }
 
         nav a:hover::after { width: 100%; }
 
         .menu-toggle {
-            display: none;
-            flex-direction: column;
-            justify-content: space-between;
-            width: 30px;
-            height: 21px;
-            cursor: pointer;
-            z-index: 101;
+            display: none; flex-direction: column; justify-content: space-between;
+            width: 30px; height: 21px; cursor: pointer; z-index: 101;
         }
 
         .menu-toggle .bar {
-            height: 3px;
-            width: 100%;
-            background-color: var(--charcoal);
-            border-radius: 3px;
-            transition: all 0.3s ease-in-out;
+            height: 3px; width: 100%; background-color: var(--charcoal);
+            border-radius: 3px; transition: all 0.3s ease-in-out;
         }
 
-        /* --- Hero Section --- */
-        .hero {
-            position: relative; 
+        /* --- Modern Split Hero Styles --- */
+        .modern-hero {
+            position: relative;
             height: 85vh; 
-            min-height: 500px;
-            display: flex; 
+            min-height: 600px;
+            display: flex;
             align-items: center;
-            justify-content: center; 
-            text-align: center; 
-            color: var(--white); 
+            justify-content: space-between;
+            text-align: left;
+            padding: 0 8%;
+            gap: 40px;
             overflow: hidden;
             background: linear-gradient(-45deg, #4361ee, #f72585, #4895ef, #3a0ca3);
             background-size: 400% 400%;
             animation: gradientBG 15s ease infinite;
+            color: var(--white);
         }
 
         @keyframes gradientBG {
@@ -145,138 +128,106 @@
         }
         
         .shape {
-            position: absolute;
-            border-radius: 50%;
-            background: rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(5px);
-            animation: float 10s infinite ease-in-out alternate;
-            z-index: 0;
+            position: absolute; border-radius: 50%; background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(5px); animation: float 10s infinite ease-in-out alternate; z-index: 0;
         }
 
         .shape:nth-child(1) { width: 30vw; height: 30vw; max-width: 300px; max-height: 300px; top: 10%; left: 10%; animation-duration: 12s; }
         .shape:nth-child(2) { width: 15vw; height: 15vw; max-width: 150px; max-height: 150px; bottom: 20%; right: 15%; animation-direction: alternate-reverse; }
         .shape:nth-child(3) { width: 20vw; height: 20vw; max-width: 200px; max-height: 200px; bottom: 10%; left: 30%; animation-duration: 15s; }
 
-        @keyframes float {
-            0% { transform: translateY(0) scale(1); }
-            100% { transform: translateY(-30px) scale(1.05); }
+        @keyframes float { 0% { transform: translateY(0) scale(1); } 100% { transform: translateY(-30px) scale(1.05); } }
+
+        .hero-content-left {
+            position: relative; z-index: 10; flex: 1; max-width: 600px;
+            animation: fadeInLeft 1s ease-out;
         }
-        
-        .hero-content { 
-            position: relative;
-            z-index: 1;
-            max-width: 800px; 
-            padding: 0 5%; 
-            animation: fadeInDown 1.2s ease-out; 
+
+        .hero-content-left h1 { 
+            font-size: clamp(2.5rem, 5vw + 1rem, 4rem); 
+            font-weight: 800; margin-bottom: 1.5rem; line-height: 1.2; text-shadow: 0 4px 15px rgba(0,0,0,0.2);
         }
-        
-        .hero h1 { 
-            font-size: clamp(2.2rem, 5vw + 1rem, 3.8rem); 
-            font-weight: 800; 
-            margin-bottom: 1.5rem;
-            line-height: 1.2;
-            text-shadow: 0 4px 15px rgba(0,0,0,0.2);
+
+        .hero-content-left p { 
+            font-size: clamp(1rem, 2vw + 0.5rem, 1.25rem); 
+            font-weight: 300; margin-bottom: 2.5rem; opacity: 0.95;
         }
-        
-        .hero p { 
-            font-size: clamp(1rem, 2vw + 0.5rem, 1.3rem); 
-            font-weight: 300; 
-            margin-bottom: 2.5rem;
-            opacity: 0.95;
-        }
-        
+
+        .hero-buttons { display: flex; gap: 15px; flex-wrap: wrap; }
+
         .hero-btn {
-            display: inline-block;
-            background: var(--white);
-            color: var(--primary);
-            padding: 14px 35px;
-            border-radius: 50px;
-            text-decoration: none;
-            font-weight: 600;
-            font-size: 1.1rem;
-            transition: all 0.3s;
+            display: inline-block; background: var(--white); color: var(--primary);
+            padding: 14px 35px; border-radius: 50px; text-decoration: none;
+            font-weight: 600; font-size: 1.1rem; transition: all 0.3s;
             box-shadow: 0 10px 20px rgba(0,0,0,0.15);
         }
         
         .hero-btn:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 15px 25px rgba(0,0,0,0.2);
-            background: var(--charcoal);
-            color: var(--white);
+            transform: translateY(-4px); box-shadow: 0 15px 25px rgba(0,0,0,0.2);
+            background: var(--charcoal); color: var(--white);
         }
 
-        /* --- Category Filters --- */
-        .category-filters { 
-            text-align: center; 
-            padding: 20px 0 30px; 
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 10px;
+        .hero-btn.outline { background: transparent; border: 2px solid var(--white); color: var(--white); box-shadow: none; }
+        .hero-btn.outline:hover { background: var(--white); color: var(--primary); }
+
+        /* --- Hero Card Stack --- */
+        .hero-cards-right {
+            flex: 1; display: flex; justify-content: center; align-items: center;
+            z-index: 10; perspective: 1000px; animation: fadeInRight 1s ease-out;
         }
+
+        .card-stack { position: relative; width: 340px; height: 460px; }
+
+        .stacked-card {
+            position: absolute; width: 100%; height: 100%; border-radius: 20px;
+            background-size: cover; background-position: center;
+            box-shadow: -15px 25px 50px rgba(0,0,0,0.4);
+            transition: all 0.7s cubic-bezier(0.4, 0, 0.2, 1);
+            cursor: pointer; border: 4px solid rgba(255,255,255,0.1);
+        }
+
+        .stacked-card.active { transform: translate3d(0, 0, 0); z-index: 3; opacity: 1; }
+        .stacked-card.next { transform: translate3d(15%, -8%, -100px) rotate(4deg); z-index: 2; opacity: 0.9; }
+        .stacked-card.prev { transform: translate3d(30%, -16%, -200px) rotate(8deg); z-index: 1; opacity: 0.7; }
+        .stacked-card.hidden { transform: translate3d(0, 20%, -300px); z-index: 0; opacity: 0; }
+
+        @keyframes fadeInLeft { from { opacity: 0; transform: translateX(-30px); } to { opacity: 1; transform: translateX(0); } }
+        @keyframes fadeInRight { from { opacity: 0; transform: translateX(30px); } to { opacity: 1; transform: translateX(0); } }
+
+        /* --- Category Filters --- */
+        .category-filters { text-align: center; padding: 20px 0 30px; display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; }
         
         .filter-btn {
-            background: none; 
-            border: 1px solid var(--medium-gray); 
-            border-radius: 50px; 
-            padding: 10px 20px;
-            cursor: pointer; 
-            font-weight: 500; 
-            color: var(--dark-gray); 
-            transition: all 0.3s ease;
-            white-space: nowrap;
+            background: none; border: 1px solid var(--medium-gray); border-radius: 50px; 
+            padding: 10px 20px; cursor: pointer; font-weight: 500; color: var(--dark-gray); 
+            transition: all 0.3s ease; white-space: nowrap;
         }
         
         .filter-btn:hover, .filter-btn.active { 
-            background: var(--gradient-primary); 
-            color: var(--white); 
-            border-color: transparent;
-            transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(67, 97, 238, 0.3);
+            background: var(--gradient-primary); color: var(--white); border-color: transparent;
+            transform: translateY(-2px); box-shadow: 0 4px 12px rgba(67, 97, 238, 0.3);
         }
 
         /* --- Gallery Section --- */
-        .gallery { 
-            padding: 30px 5%; 
-            background-color: var(--light-gray);
-            border-radius: 20px;
-            margin-bottom: 40px;
-        }
-        
-        .gallery-grid { 
-            column-count: 3; 
-            column-gap: 20px; 
-        }
+        .gallery { padding: 30px 5%; background-color: var(--light-gray); border-radius: 20px; margin-bottom: 40px; }
+        .gallery-grid { column-count: 3; column-gap: 20px; }
         
         .gallery-item {
-            position: relative; 
-            border-radius: 12px; 
-            overflow: hidden; 
-            box-shadow: 0 5px 15px var(--shadow-color);
-            transition: transform 0.3s, box-shadow 0.3s; 
-            break-inside: avoid; 
-            margin-bottom: 20px;
-            cursor: pointer; 
-            animation: fadeInUp 0.5s ease-out;
-            background: var(--white);
+            position: relative; border-radius: 12px; overflow: hidden; box-shadow: 0 5px 15px var(--shadow-color);
+            transition: transform 0.3s, box-shadow 0.3s; break-inside: avoid; margin-bottom: 20px;
+            cursor: pointer; animation: fadeInUp 0.5s ease-out; background: var(--white);
         }
         
         @keyframes fadeInUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
-        @keyframes fadeInDown { from { opacity: 0; transform: translateY(-20px); } to { opacity: 1; transform: translateY(0); } }
         
         .gallery-item:hover { transform: translateY(-5px); box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15); }
         .gallery-img { width: 100%; height: auto; display: block; transition: transform 0.5s ease; }
         .gallery-item:hover .gallery-img { transform: scale(1.05); }
         
         .gallery-overlay {
-            position: absolute; 
-            bottom: 0; left: 0; right: 0; 
+            position: absolute; bottom: 0; left: 0; right: 0; 
             background: linear-gradient(to top, rgba(0, 0, 0, 0.8), transparent);
-            padding: 20px; 
-            color: white; 
-            opacity: 0; 
-            transform: translateY(10px); 
-            transition: all 0.3s ease;
+            padding: 20px; color: white; opacity: 0; transform: translateY(10px); transition: all 0.3s ease;
         }
         
         .gallery-item:hover .gallery-overlay { opacity: 1; transform: translateY(0); }
@@ -284,158 +235,71 @@
         .gallery-category { font-size: 0.9rem; opacity: 0.8; }
 
         /* --- About Section --- */
-        .about { 
-            background-color: var(--white);
-            position: relative;
-        }
+        .about { background-color: var(--white); position: relative; }
+        .section-title { text-align: center; font-size: clamp(2rem, 4vw, 2.5rem); margin-bottom: 40px; font-weight: 700; color: var(--charcoal); }
+        .section-title::after { content: ''; display: block; width: 80px; height: 4px; background: var(--gradient-primary); margin: 15px auto 0; border-radius: 2px; }
         
-        .section-title { 
-            text-align: center; 
-            font-size: clamp(2rem, 4vw, 2.5rem); 
-            margin-bottom: 40px; 
-            font-weight: 700; 
-            color: var(--charcoal); 
-        }
-        
-        .section-title::after {
-            content: '';
-            display: block;
-            width: 80px;
-            height: 4px;
-            background: var(--gradient-primary);
-            margin: 15px auto 0;
-            border-radius: 2px;
-        }
-        
-        .about-content { 
-            display: flex; 
-            align-items: center; 
-            gap: 60px; 
-        }
-        
-        .about-image { 
-            flex: 1; 
-            width: 100%;
-            max-width: 400px; 
-            border-radius: 12px; 
-            box-shadow: 0 15px 40px rgba(0,0,0,0.1); 
-            transition: transform 0.5s;
-        }
-        
+        .about-content { display: flex; align-items: center; gap: 60px; }
+        .about-image { flex: 1; width: 100%; max-width: 400px; border-radius: 12px; box-shadow: 0 15px 40px rgba(0,0,0,0.1); transition: transform 0.5s; }
         .about-image:hover { transform: scale(1.02); }
         .about-text { flex: 2; }
         .about-text h3 { font-size: 1.8rem; margin-bottom: 20px; color: var(--primary-dark); }
         .about-text p { margin-bottom: 20px; font-size: 1.05rem; }
         
-        .portfolio-link {
-            display: inline-block;
-            margin-top: 10px;
-            padding: 12px 25px;
-            background: var(--gradient-primary);
-            color: white;
-            text-decoration: none;
-            border-radius: 50px;
-            font-weight: 500;
-            transition: all 0.3s;
-        }
-        
+        .portfolio-link { display: inline-block; margin-top: 10px; padding: 12px 25px; background: var(--gradient-primary); color: white; text-decoration: none; border-radius: 50px; font-weight: 500; transition: all 0.3s; }
         .portfolio-link:hover { transform: translateY(-3px); box-shadow: 0 6px 20px rgba(67, 97, 238, 0.4); }
 
         /* --- Contact Section --- */
         .icon-box svg { width: 20px; height: 20px; fill: currentColor; margin-right: 8px; }
 
         /* --- Footer --- */
-        footer { 
-            padding: 60px 5% 30px; 
-            text-align: center; 
-            background: var(--charcoal); 
-            color: var(--white); 
-            position: relative;
-        }
-        
-        footer::before {
-            content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 6px;
-            background: var(--gradient-primary);
-        }
-        
-        .footer-socials { 
-            margin-bottom: 30px;
-            display: flex;
-            justify-content: center;
-            gap: 15px;
-            flex-wrap: wrap;
-        }
-        
-        .footer-socials a { 
-            color: var(--white); 
-            text-decoration: none;
-            font-size: 0.95rem; 
-            transition: all 0.3s; 
-            opacity: 0.8;
-            padding: 8px 18px;
-            border: 1px solid rgba(255,255,255,0.2);
-            border-radius: 50px;
-        }
-        
-        .footer-socials a:hover { 
-            opacity: 1;
-            background: rgba(255,255,255,0.1);
-            border-color: var(--primary-light);
-        }
-        
-        .footer-bottom { 
-            margin-top: 30px; 
-            opacity: 0.7; 
-            font-size: 0.9rem; 
-            padding-top: 20px;
-            border-top: 1px solid rgba(255,255,255,0.1);
-        }
+        footer { padding: 60px 5% 30px; text-align: center; background: var(--charcoal); color: var(--white); position: relative; }
+        footer::before { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 6px; background: var(--gradient-primary); }
+        .footer-socials { margin-bottom: 30px; display: flex; justify-content: center; gap: 15px; flex-wrap: wrap; }
+        .footer-socials a { color: var(--white); text-decoration: none; font-size: 0.95rem; transition: all 0.3s; opacity: 0.8; padding: 8px 18px; border: 1px solid rgba(255,255,255,0.2); border-radius: 50px; }
+        .footer-socials a:hover { opacity: 1; background: rgba(255,255,255,0.1); border-color: var(--primary-light); }
+        .footer-bottom { margin-top: 30px; opacity: 0.7; font-size: 0.9rem; padding-top: 20px; border-top: 1px solid rgba(255,255,255,0.1); }
 
         /* --- Modal --- */
         .modal {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%; 
-            background: rgba(0, 0, 0, 0.95);
-            display: flex; justify-content: center; align-items: center; 
-            z-index: 1000; opacity: 0; pointer-events: none; transition: opacity 0.3s; 
-            padding: 20px;
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.95);
+            display: flex; justify-content: center; align-items: center; z-index: 1000; opacity: 0; 
+            pointer-events: none; transition: opacity 0.3s; padding: 20px;
         }
-        
         .modal.active { opacity: 1; pointer-events: all; }
-        
         .modal-content {
             background: white; border-radius: 12px; width: 100%; max-width: 1100px;
             max-height: 90vh; display: flex; overflow: hidden; flex-direction: row; 
             position: relative; box-shadow: 0 20px 50px rgba(0,0,0,0.3);
         }
-        
         .modal-img-container { flex: 1.5; background-color: #111; display: flex; align-items: center; justify-content: center; overflow: hidden; min-height: 300px; }
         .modal-img { width: 100%; height: 100%; object-fit: contain; display: block; }
-        
         .modal-details { flex: 1; padding: 40px; overflow-y: auto; background: var(--white); }
         .modal-title { font-size: 1.8rem; margin-bottom: 5px; color: var(--primary-dark); }
         .modal-description { margin: 20px 0; line-height: 1.6; font-weight: 300; }
-        
         .modal-close {
             background: white; border: none; font-size: 2rem; cursor: pointer; color: var(--dark-gray);
             position: absolute; top: 15px; right: 15px; z-index: 10; width: 40px; height: 40px;
             border-radius: 50%; display: flex; align-items: center; justify-content: center;
             box-shadow: 0 2px 5px rgba(0,0,0,0.2); line-height: 1;
         }
-        
         .modal-nav {
-            position: absolute; top: 50%; transform: translateY(-50%); 
-            background: rgba(255, 255, 255, 0.9); border: none; border-radius: 50%; 
-            width: 45px; height: 45px; font-size: 20px; cursor: pointer; color: var(--charcoal); 
-            display: flex; align-items: center; justify-content: center;
+            position: absolute; top: 50%; transform: translateY(-50%); background: rgba(255, 255, 255, 0.9); 
+            border: none; border-radius: 50%; width: 45px; height: 45px; font-size: 20px; cursor: pointer; 
+            color: var(--charcoal); display: flex; align-items: center; justify-content: center;
             box-shadow: 0 2px 10px rgba(0,0,0,0.2); transition: all 0.3s; z-index: 10;
         }
-        
         .modal-nav:hover { background: var(--white); transform: translateY(-50%) scale(1.1); color: var(--primary); }
         #prev-btn { left: 15px; }
         #next-btn { right: 15px; }
 
         /* --- RESPONSIVE MEDIA QUERIES --- */
         @media (max-width: 992px) {
+            .modern-hero { flex-direction: column; text-align: center; padding-top: 100px; justify-content: center; }
+            .hero-content-left h1, .hero-content-left p { text-align: center; }
+            .hero-buttons { justify-content: center; margin-bottom: 40px; }
+            .card-stack { width: 280px; height: 380px; }
+            
             .gallery-grid { column-count: 2; }
             .about-content { flex-direction: column; text-align: center; gap: 40px;}
             .about-image { margin: 0 auto; }
@@ -501,14 +365,27 @@
         </nav>
     </header>
     
-    <section class="hero">
+    <section class="hero modern-hero">
         <div class="shape"></div>
         <div class="shape"></div>
         <div class="shape"></div>
-        <div class="hero-content">
+        
+        <div class="hero-content-left">
             <h1>Where Creativity Finds Its Canvas</h1>
-            <p>A curated collection of modern art and captivating graphic designs.</p>
-            <a href="#gallery" class="hero-btn">Explore Gallery</a>
+            <p>A curated collection of modern art and captivating graphic designs. Explore my latest visual journeys and aesthetic explorations.</p>
+            <div class="hero-buttons">
+                <a href="#gallery" class="hero-btn">Explore Gallery</a>
+                <a href="#contact" class="hero-btn outline">Get In Touch</a>
+            </div>
+        </div>
+
+        <div class="hero-cards-right">
+            <div class="card-stack" id="hero-stack">
+                <div class="stacked-card" style="background-image: url('post_14.jpg');"></div>
+                <div class="stacked-card" style="background-image: url('post_13.jpg');"></div>
+                <div class="stacked-card" style="background-image: url('post_11.jpg');"></div>
+                <div class="stacked-card" style="background-image: url('post_12.png');"></div>
+            </div>
         </div>
     </section>
 
@@ -596,8 +473,10 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', () => {
+            // Set Year
             document.getElementById('current-year').textContent = new Date().getFullYear();
 
+            // Mobile Menu
             const mobileMenu = document.getElementById('mobile-menu');
             const navLinks = document.getElementById('nav-links');
 
@@ -613,6 +492,7 @@
                 });
             });
 
+            // Smooth Scroll
             document.querySelectorAll('nav a, .hero-btn, .portfolio-link').forEach(anchor => {
                 anchor.addEventListener('click', function(e) {
                     const targetId = this.getAttribute('href');
@@ -629,6 +509,42 @@
                 });
             });
 
+            // --- Hero Card Swapping Logic ---
+            const stackedCards = document.querySelectorAll('.stacked-card');
+            let stackIndex = 0;
+            let autoSwapInterval;
+
+            function updateCardStack() {
+                stackedCards.forEach(card => card.classList.remove('active', 'next', 'prev', 'hidden'));
+                
+                if (stackedCards.length > 0) {
+                    stackedCards[stackIndex].classList.add('active');
+                    stackedCards[(stackIndex + 1) % stackedCards.length].classList.add('next');
+                    stackedCards[(stackIndex + 2) % stackedCards.length].classList.add('prev');
+                    
+                    for(let i = 3; i < stackedCards.length; i++) {
+                         stackedCards[(stackIndex + i) % stackedCards.length].classList.add('hidden');
+                    }
+                }
+            }
+
+            function nextCard() {
+                stackIndex = (stackIndex + 1) % stackedCards.length;
+                updateCardStack();
+            }
+
+            if(stackedCards.length > 0) {
+                updateCardStack();
+                autoSwapInterval = setInterval(nextCard, 3500);
+
+                document.getElementById('hero-stack').addEventListener('click', () => {
+                    clearInterval(autoSwapInterval); 
+                    nextCard();
+                    autoSwapInterval = setInterval(nextCard, 3500); 
+                });
+            }
+
+            // --- Gallery Logic ---
             const galleryGrid = document.getElementById('gallery-grid');
             const imageModal = document.getElementById('image-modal');
             const filterButtons = document.querySelectorAll('.filter-btn');
@@ -642,7 +558,7 @@
             const modalYear = document.getElementById('modal-year');
             const imageModalClose = document.getElementById('image-modal-close');
             
-            // --- UPDATED GALLERY DATA ---
+            // Full 14-Item Artwork Data
             const galleryData = [
                 { id: 1, src: "post_1.png", title: "Nike Air Promotion", artist: "Sunny", description: "A bold, modern poster design for the Nike Air Jordan sale featuring layered typography and grunge textures.", medium: "Graphic Design (Photoshop)", dimensions: "High Resolution", year: "2024", category: "Posters" },
                 { id: 2, src: "post_2.png", title: "Travel The World", artist: "Sunny", description: "An engaging travel agency advertisement flyer with neat masking techniques and clean informational hierarchy.", medium: "Graphic Design (Illustrator)", dimensions: "High Resolution", year: "2024", category: "Posters" },
