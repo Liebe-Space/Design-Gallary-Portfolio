@@ -55,17 +55,18 @@
         }
 
         .logo { 
-            font-size: 1.5rem; 
-            font-weight: 700; 
-            color: var(--primary); 
-            text-decoration: none;
             display: flex;
             align-items: center;
-            gap: 10px;
             z-index: 101; 
+            text-decoration: none;
         }
-        
-        .logo svg { width: 24px; height: 24px; fill: url(#logo-gradient); }
+
+        /* Adjusted Logo Styling to invert black background to white */
+        .logo img {
+            height: 45px;
+            width: auto;
+            filter: invert(1);
+        }
 
         nav ul {
             display: flex;
@@ -335,19 +336,10 @@
     </style>
 </head>
 <body>
-    <svg style="width:0;height:0;position:absolute;" aria-hidden="true" focusable="false">
-      <linearGradient id="logo-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
-        <stop offset="0%" stop-color="#4361ee" />
-        <stop offset="100%" stop-color="#f72585" />
-      </linearGradient>
-    </svg>
 
     <header>
         <a href="#" class="logo">
-            <svg viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg">
-                <path d="M512 256c0 .5 0 1-0.1 1.5c-2.4 36.6-32.9 65.6-70.1 65.6l-38 0c-14.7 0-27.4 10.3-30.8 24.7l-4.5 19.3C358 396.4 329.9 416 300.5 416l-44.5 0c-114.9 0-208-93.1-208-208S141.1 0 256 0S464 93.1 464 208c0 13.6-1.3 27-3.9 40c2.3-2.1 4.8-4 7.4-5.9c13.7-10.1 32.7-10.1 46.4 0c14.7 10.7 21 29.3 15.6 46.5c-1.3 4.1-3.2 8-5.7 11.5c1.4 1.9 2.7 3.9 3.8 5.9H512zM176 144a32 32 0 1 0 -64 0 32 32 0 1 0 64 0zm112-48a32 32 0 1 0 0-64 32 32 0 1 0 0 64zm112 48a32 32 0 1 0 -64 0 32 32 0 1 0 64 0zM352 288a32 32 0 1 0 0-64 32 32 0 1 0 0 64z"/>
-            </svg>
-            Sunny's Gallery
+            <img src="Picsart_26-03-14_12-47-47-920.png" alt="t.Sunny Logo">
         </a>
         
         <div class="menu-toggle" id="mobile-menu">
@@ -413,7 +405,7 @@
                 <h3>Hello, I'm Sunny</h3>
                 <p>I'm a passionate digital artist and graphic designer with a love for creating visually compelling narratives. My journey in the arts began over a decade ago, and since then I've developed a distinctive style that blends traditional techniques with modern digital tools.</p>
                 <p>This gallery represents my creative evolution, featuring works that range from vibrant digital paintings to minimalist vector art. Each piece is a reflection of my exploration into the intersection of technology and artistic expression.</p>
-                <a href="#gallery" class="portfolio-link">View Full Portfolio</a>
+                <a href="https://tatiparthisunny.netlify.app/" target="_blank" class="portfolio-link">View Full Portfolio</a>
             </div>
         </div>
     </section>
@@ -423,13 +415,13 @@
         <div style="max-width: 800px; margin: 0 auto; text-align: center;">
             <p style="font-size: clamp(1rem, 2vw, 1.1rem); margin-bottom: 30px;">For inquiries, collaborations, or just to say hello, feel free to reach out via email or phone.</p>
             <div class="contact-links" style="display: flex; justify-content: center; gap: 30px; flex-wrap: wrap;">
-                <a href="mailto:hello@example.com" class="icon-box" style="display: inline-flex; align-items: center; color: var(--primary); text-decoration: none; font-weight: 500;">
+                <a href="mailto:tatiparthisunny124@gmail.com" class="icon-box" style="display: inline-flex; align-items: center; color: var(--primary); text-decoration: none; font-weight: 500;">
                     <svg viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg"><path d="M48 64C21.5 64 0 85.5 0 112c0 15.1 7.1 29.3 19.2 38.4L236.8 313.6c11.4 8.5 27 8.5 38.4 0L492.8 150.4c12.1-9.1 19.2-23.3 19.2-38.4c0-26.5-21.5-48-48-48H48zM0 176V384c0 35.3 28.7 64 64 64H448c35.3 0 64-28.7 64-64V176L294.4 339.2c-22.8 17.1-54 17.1-76.8 0L0 176z"/></svg>
-                    hello@example.com
+                    tatiparthisunny124@gmail.com
                 </a>
-                <a href="tel:+1234567890" class="icon-box" style="display: inline-flex; align-items: center; color: var(--primary); text-decoration: none; font-weight: 500;">
+                <a href="tel:+918331844559" class="icon-box" style="display: inline-flex; align-items: center; color: var(--primary); text-decoration: none; font-weight: 500;">
                     <svg viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg"><path d="M164.9 24.6c-7.7-18.6-28-28.5-47.4-23.2l-88 24C12.1 30.2 0 46 0 64C0 311.4 200.6 512 448 512c18 0 33.8-12.1 38.6-29.5l24-88c5.3-19.4-4.6-39.7-23.2-47.4l-96-40c-16.3-6.8-35.2-2.1-46.3 11.6L304.7 368C234.3 334.7 177.3 277.7 144 207.3L193.3 167c13.7-11.2 18.4-30 11.6-46.3l-40-96z"/></svg>
-                    +1 (234) 567-890
+                    +91 8331844559
                 </a>
             </div>
         </div>
@@ -437,10 +429,9 @@
 
     <footer>
         <div class="footer-socials">
-            <a href="#">Instagram</a>
-            <a href="#">Behance</a>
-            <a href="#">Dribbble</a>
-            <a href="#">LinkedIn</a>
+            <a href="https://www.instagram.com/scaled_ux/" target="_blank">Instagram</a>
+            <a href="https://www.behance.net/tatiparthi_sunny" target="_blank">Behance</a>
+            <a href="https://in.linkedin.com/in/tatiparthi-sunny" target="_blank">LinkedIn</a>
         </div>
         <div class="footer-bottom">
             <p>&copy; <span id="current-year"></span> Sunny's Art & Design Gallery. All rights reserved.</p>
@@ -493,10 +484,10 @@
             });
 
             // Smooth Scroll
-            document.querySelectorAll('nav a, .hero-btn, .portfolio-link').forEach(anchor => {
+            document.querySelectorAll('nav a, .hero-btn').forEach(anchor => {
                 anchor.addEventListener('click', function(e) {
                     const targetId = this.getAttribute('href');
-                    if(targetId.startsWith('#')) {
+                    if(targetId && targetId.startsWith('#')) {
                         e.preventDefault();
                         const targetElement = document.querySelector(targetId);
                         if (targetElement) {
