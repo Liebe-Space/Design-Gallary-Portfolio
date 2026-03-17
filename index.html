@@ -61,9 +61,9 @@
             text-decoration: none;
         }
 
-        /* Adjusted Logo Styling to invert black background to white */
+        /* INCREASED LOGO SIZE */
         .logo img {
-            height: 45px;
+            height: 70px; /* Made the logo much bigger */
             width: auto;
             filter: invert(1);
         }
@@ -312,7 +312,16 @@
         @media (max-width: 768px) {
             .container { padding: 40px 5%; }
             section { padding: 60px 0; }
-            .menu-toggle { display: flex; }
+            
+            /* FIXED MOBILE MENU ALIGNMENT */
+            .menu-toggle { 
+                display: flex; 
+                position: absolute;
+                right: 5%;
+                top: 50%;
+                transform: translateY(-50%);
+            }
+            
             nav ul {
                 position: absolute; top: 100%; left: 0; width: 100%; background: white;
                 flex-direction: column; align-items: center; padding: 0; max-height: 0;
@@ -373,10 +382,10 @@
 
         <div class="hero-cards-right">
             <div class="card-stack" id="hero-stack">
+                <div class="stacked-card" style="background-image: url('post_17.jpg');"></div>
                 <div class="stacked-card" style="background-image: url('post_14.jpg');"></div>
+                <div class="stacked-card" style="background-image: url('post_16.jpg');"></div>
                 <div class="stacked-card" style="background-image: url('post_13.jpg');"></div>
-                <div class="stacked-card" style="background-image: url('post_11.jpg');"></div>
-                <div class="stacked-card" style="background-image: url('post_12.png');"></div>
             </div>
         </div>
     </section>
@@ -400,7 +409,7 @@
     <section id="about" class="container about">
         <h2 class="section-title">About Me</h2>
         <div class="about-content">
-            <img src="beautiful-anime-character-cartoon-scene.jpg" alt="Sunny's Profile" class="about-image" onerror="this.src='data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' width=\'400\' height=\'400\'><rect width=\'400\' height=\'400\' fill=\'%23e9ecef\'/><text x=\'50%\' y=\'50%\' dominant-baseline=\'middle\' text-anchor=\'middle\' font-family=\'sans-serif\' font-size=\'20px\' fill=\'%236c757d\'>Profile Image Placeholder</text></svg>'">
+            <img src="profile.png" alt="Sunny's Profile" class="about-image" onerror="this.src='data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' width=\'400\' height=\'400\'><rect width=\'400\' height=\'400\' fill=\'%23e9ecef\'/><text x=\'50%\' y=\'50%\' dominant-baseline=\'middle\' text-anchor=\'middle\' font-family=\'sans-serif\' font-size=\'20px\' fill=\'%236c757d\'>Profile Image Placeholder</text></svg>'">
             <div class="about-text">
                 <h3>Hello, I'm Sunny</h3>
                 <p>I'm a passionate digital artist and graphic designer with a love for creating visually compelling narratives. My journey in the arts began over a decade ago, and since then I've developed a distinctive style that blends traditional techniques with modern digital tools.</p>
@@ -549,7 +558,7 @@
             const modalYear = document.getElementById('modal-year');
             const imageModalClose = document.getElementById('image-modal-close');
             
-            // Full 14-Item Artwork Data
+            // Full 17-Item Artwork Data
             const galleryData = [
                 { id: 1, src: "post_1.png", title: "Nike Air Promotion", artist: "Sunny", description: "A bold, modern poster design for the Nike Air Jordan sale featuring layered typography and grunge textures.", medium: "Graphic Design (Photoshop)", dimensions: "High Resolution", year: "2024", category: "Posters" },
                 { id: 2, src: "post_2.png", title: "Travel The World", artist: "Sunny", description: "An engaging travel agency advertisement flyer with neat masking techniques and clean informational hierarchy.", medium: "Graphic Design (Illustrator)", dimensions: "High Resolution", year: "2024", category: "Posters" },
@@ -564,7 +573,10 @@
                 { id: 11, src: "post_11.jpg", title: "Heartbeat of Hyderabad", artist: "Sunny", description: "A creative digital collage of the Charminar featuring a torn paper effect, contrasting monochrome history with vibrant modern colors.", medium: "Figma", dimensions: "High Resolution", year: "2024", category: "Digital Art" },
                 { id: 12, src: "post_12.png", title: "One Step Typography", artist: "Sunny", description: "A bold, minimalist typography poster featuring a stylized character walking forward against striking red lettering.", medium: "Digital Illustration", dimensions: "High Resolution", year: "2024", category: "Posters" },
                 { id: 13, src: "post_13.jpg", title: "Mumbai: City of Dreams", artist: "Sunny", description: "A striking split-composition travel poster featuring the Gateway of India and the Bandra-Worli Sea Link with overlaying script typography.", medium: "Photo Manipulation", dimensions: "High Resolution", year: "2024", category: "Digital Art" },
-                { id: 14, src: "post_14.jpg", title: "Aurora", artist: "Sunny", description: "A serene night sky landscape utilizing text masking to reveal a glowing sunrise within the typography.", medium: "Digital Art & Typography", dimensions: "High Resolution", year: "2024", category: "Digital Art" }
+                { id: 14, src: "post_14.jpg", title: "Aurora", artist: "Sunny", description: "A serene night sky landscape utilizing text masking to reveal a glowing sunrise within the typography.", medium: "Digital Art & Typography", dimensions: "High Resolution", year: "2024", category: "Digital Art" },
+                { id: 15, src: "post_15.jpg", title: "Wild Nature Reservation", artist: "Sunny", description: "A picturesque nature poster promoting hiking companions and outdoor adventures with sweeping landscape imagery.", medium: "Graphic Design", dimensions: "Portrait", year: "2024", category: "Posters" },
+                { id: 16, src: "post_16.jpg", title: "realme Buds Air6 Showcase", artist: "Sunny", description: "A sleek, tech-focused infographic poster highlighting the features of the realme Buds Air6.", medium: "Digital Marketing Design", dimensions: "Portrait", year: "2024", category: "Social Media" },
+                { id: 17, src: "post_17.jpg", title: "Focus Eye Cutout", artist: "Sunny", description: "An edgy editorial portrait featuring a sharp color cutout overlay on a blurred black-and-white background, framed with a recording UI.", medium: "Photo Manipulation", dimensions: "Portrait", year: "2024", category: "Digital Art" }
             ];
 
             let currentFilteredData = [...galleryData];
